@@ -8,7 +8,9 @@ var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
 var passport = require('passport')
 
-mongoose.connect('mongodb://localhost:27017/example')
+mongoose.connect(
+  process.env.MONGODB_URI || 'mongodb://localhost:27017/example'
+)
 
 // require('./config/passport')
 

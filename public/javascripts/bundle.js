@@ -38427,7 +38427,7 @@
 /* 42 */
 /***/ function(module, exports) {
 
-	module.exports = "<ul>\n  <li ng-repeat=\"product in showCategoryCtrl.products\">\n    <a ui-sref=\"showProduct({ productId: product._id })\">\n      <ul>\n        <li>Nom:{{ product.name }}</li>\n        <li>Prix:{{ product.price }}</li>\n      </ul>\n    </a>\n  </li>\n</ul>\n"
+	module.exports = "<a ui-sref=\"categories\">\n  <button class=\"btn btn-default\">\n    Retour\n  </button>\n</a>\n<ul>\n  <li ng-repeat=\"product in showCategoryCtrl.products\">\n    <a ui-sref=\"showProduct({ productId: product._id })\">\n      <ul>\n        <li>Nom:{{ product.name }}</li>\n        <li>Prix:{{ product.price }}</li>\n      </ul>\n    </a>\n  </li>\n</ul>\n"
 
 /***/ },
 /* 43 */
