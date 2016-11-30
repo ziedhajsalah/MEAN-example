@@ -37727,7 +37727,7 @@
 /* 24 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\n  <a ui-sref=\"home\">Retour</a>\n  <h3>products</h3>\n  <ul>\n    <li ng-repeat=\"product in productsListCtrl.products\">\n      <a ui-sref=\"showProduct({ productId: product._id })\">\n        <ul>\n          <li>Nom:{{ product.name }}</li>\n          <li>date:{{ product.createdAt }}</li>\n        </ul>\n      </a>\n    </li>\n  </ul>\n</div>"
+	module.exports = "<div>\n  <a ui-sref=\"home\">Retour</a>\n  <button class=\"btn btn-success\"\n          ng-click=\"productsListCtrl.toggleForm()\">\n    Ajouter\n  </button>\n\n  <div ng-show=\"productsListCtrl.showForm\">\n    <form ng-submit=\"productsListCtrl\n                      .addProduct(productsListCtrl.product)\">\n      <div class=\"form-group\">\n        <label for=\"name\">Nom:</label>\n        <input type=\"text\" class=\"form-control\" name=\"name\" id=\"name\"\n               ng-model=\"productsListCtrl.product.name\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"price\">Prix:</label>\n        <input type=\"text\" class=\"form-control\" name=\"price\" id=\"price\"\n               ng-model=\"productsListCtrl.product.price\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"qty\">Quantité:</label>\n        <input type=\"number\" class=\"form-control\" name=\"qty\" id=\"qty\"\n               ng-model=\"productsListCtrl.product.quantity\">\n      </div>\n\n      <button type=\"submit\" class=\"btn btn-info\">Envoyer</button>\n    </form>\n  </div>\n\n  <h3>products</h3>\n  <ul>\n    <li ng-repeat=\"product in productsListCtrl.products\">\n      <a ui-sref=\"showProduct({ productId: product._id })\">\n        <ul>\n          <li>Nom:{{ product.name }}</li>\n          <li>Prix:{{ product.price }}</li>\n          <li>Quantité:{{ product.quantity }}</li>\n        </ul>\n      </a>\n    </li>\n  </ul>\n</div>"
 
 /***/ },
 /* 25 */
@@ -37751,6 +37751,8 @@
 	    _classCallCheck(this, ProductsController);
 	
 	    this.ProductsModel = ProductsModel;
+	    this.showForm = false;
+	    this.product = {};
 	  }
 	
 	  _createClass(ProductsController, [{
@@ -37761,6 +37763,23 @@
 	      this.ProductsModel.getProducts().then(function (response) {
 	        _this.products = response.data;
 	      });
+	    }
+	  }, {
+	    key: 'toggleForm',
+	    value: function toggleForm() {
+	      this.showForm = !this.showForm;
+	    }
+	  }, {
+	    key: 'addProduct',
+	    value: function addProduct(product) {
+	      var _this2 = this;
+	
+	      this.ProductsModel.addProduct(product).then(function (response) {
+	        _this2.products.push(response.data.product);
+	      });
+	
+	      this.product = {};
+	      this.showForm = false;
 	    }
 	  }]);
 	
@@ -37843,7 +37862,7 @@
 /* 29 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\n  <div>\n    <a ui-sref=\"products\">Retour</a>\n    <h3>Détails du Produit</h3>\n    Nom: {{ showProductCtrl.product.name }}<br>\n    date: {{ showProductCtrl.product.createdAt }}<br>\n  </div>\n</div>"
+	module.exports = "<div>\n  <div>\n    <a ui-sref=\"products\">Retour</a>\n    <h3>Détails du Produit</h3>\n    Nom: {{ showProductCtrl.product.name }}<br>\n    date: {{ showProductCtrl.product.createdAt }}<br>\n    <button class=\"btn btn-info\"\n            ng-click=\"showProductCtrl.toggleForm()\">\n      Modifier\n    </button>\n\n    <button class=\"btn btn-danger\"\n            ng-click=\"showProductCtrl\n              .deleteProduct(showProductCtrl.product)\">\n      Supprimer\n    </button>\n  </div>\n  <div ng-show=\"showProductCtrl.showForm\">\n    <form ng-submit=\"showProductCtrl.update(showProductCtrl.product)\">\n      <div class=\"form-group\">\n        <label for=\"name\">Nom:</label>\n        <input type=\"text\" class=\"form-control\" name=\"name\" id=\"name\"\n               ng-model=\"showProductCtrl.product.name\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"price\">Prix:</label>\n        <input type=\"text\" class=\"form-control\" name=\"price\" id=\"price\"\n               ng-model=\"showProductCtrl.product.price\">\n      </div>\n\n      <button type=\"submit\" class=\"btn btn-info\">Envoyer</button>\n    </form>\n  </div>\n</div>"
 
 /***/ },
 /* 30 */
@@ -37860,15 +37879,16 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var ShowProductController = function () {
-	  ShowProductController.$inject = ["ProductsModel", "$stateParams"];
-	  function ShowProductController(ProductsModel, $stateParams) {
+	  ShowProductController.$inject = ["ProductsModel", "$stateParams", "$state"];
+	  function ShowProductController(ProductsModel, $stateParams, $state) {
 	    'ngInject';
 	
 	    _classCallCheck(this, ShowProductController);
 	
 	    this.$stateParams = $stateParams;
 	    this.ProductsModel = ProductsModel;
-	
+	    this.$state = $state;
+	    this.showForm = false;
 	    this.productId = this.$stateParams.productId;
 	  }
 	
@@ -37878,8 +37898,30 @@
 	      var _this = this;
 	
 	      this.ProductsModel.getProduct(this.productId).then(function (response) {
-	        console.log(response);
 	        _this.product = response.data;
+	      });
+	    }
+	  }, {
+	    key: 'toggleForm',
+	    value: function toggleForm() {
+	      this.showForm = !this.showForm;
+	    }
+	  }, {
+	    key: 'update',
+	    value: function update(product) {
+	      var _this2 = this;
+	
+	      this.ProductsModel.updateProduct(product).then(function (response) {
+	        _this2.product = response.data.product;
+	      });
+	    }
+	  }, {
+	    key: 'deleteProduct',
+	    value: function deleteProduct(product) {
+	      var _this3 = this;
+	
+	      this.ProductsModel.deleteProduct(product).then(function (response) {
+	        return _this3.$state.go('products');
 	      });
 	    }
 	  }]);
@@ -37996,6 +38038,20 @@
 	      return this.$q.when(this.products);
 	    }
 	  }, {
+	    key: 'addProduct',
+	    value: function addProduct(product) {
+	      var deferred = this.$q.defer();
+	      this.$http.post('/products', product).then(function (data) {
+	        deferred.resolve(data);
+	      }, function (error) {
+	        deferred.reject(error);
+	      });
+	
+	      var newProduct = deferred.promise;
+	
+	      return this.$q.when(newProduct);
+	    }
+	  }, {
 	    key: 'getProduct',
 	    value: function getProduct(product) {
 	      var deferred = this.$q.defer();
@@ -38008,6 +38064,34 @@
 	      var fetchedProduct = deferred.promise;
 	
 	      return this.$q.when(fetchedProduct);
+	    }
+	  }, {
+	    key: 'updateProduct',
+	    value: function updateProduct(product) {
+	      var deferred = this.$q.defer();
+	      this.$http.put('/products/' + product._id, product).then(function (data) {
+	        deferred.resolve(data);
+	      }, function (error) {
+	        deferred.reject(error);
+	      });
+	
+	      var updatedProduct = deferred.promise;
+	
+	      return this.$q.when(updatedProduct);
+	    }
+	  }, {
+	    key: 'deleteProduct',
+	    value: function deleteProduct(product) {
+	      var deferred = this.$q.defer();
+	      this.$http.delete('/products/' + product._id, product).then(function (data) {
+	        deferred.resolve(data);
+	      }, function (error) {
+	        deferred.reject(error);
+	      });
+	
+	      var deletedProduct = deferred.promise;
+	
+	      return this.$q.when(deletedProduct);
 	    }
 	  }]);
 	
