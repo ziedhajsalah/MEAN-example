@@ -8,6 +8,7 @@ class ProductsModel {
 
     this.getProducts = this.getProducts.bind(this)
   }
+
   getProducts () {
     const deferred = this.$q.defer()
     this.$http.get('/products')
@@ -21,6 +22,7 @@ class ProductsModel {
 
     return this.$q.when(this.products)
   }
+
   addProduct (product) {
     const deferred = this.$q.defer()
     this.$http.post('/products', product)
@@ -34,6 +36,7 @@ class ProductsModel {
 
     return this.$q.when(newProduct)
   }
+
   getProduct (product) {
     const deferred = this.$q.defer()
     this.$http.get('/products/' + product)
@@ -47,6 +50,7 @@ class ProductsModel {
 
     return this.$q.when(fetchedProduct)
   }
+
   updateProduct (product) {
     const deferred = this.$q.defer()
     this.$http.put('/products/' + product._id, product)
@@ -60,6 +64,7 @@ class ProductsModel {
 
     return this.$q.when(updatedProduct)
   }
+
   deleteProduct (product) {
     const deferred = this.$q.defer()
     this.$http.delete('/products/' + product._id, product)
@@ -72,6 +77,20 @@ class ProductsModel {
     const deletedProduct = deferred.promise
 
     return this.$q.when(deletedProduct)
+  }
+
+  getCategoryProducts (category) {
+    const deferred = this.$q.defer()
+    this.$http.get('/products?cat=' + category._id)
+      .then(data => {
+        deferred.resolve(data)
+      }, error => {
+        deferred.reject(error)
+      })
+
+    const products = deferred.promise
+
+    return this.$q.when(products)
   }
 }
 

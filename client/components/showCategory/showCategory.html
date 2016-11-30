@@ -1,0 +1,10 @@
+<ul>
+  <li ng-repeat="product in showCategoryCtrl.products">
+    <a ui-sref="showProduct({ productId: product._id })">
+      <ul>
+        <li>Nom:{{ product.name }}</li>
+        <li>Prix:{{ product.price }}</li>
+      </ul>
+    </a>
+  </li>
+</ul>

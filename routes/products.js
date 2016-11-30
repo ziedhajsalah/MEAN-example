@@ -2,13 +2,20 @@ var express = require('express')
 var bodyParser = require('body-parser')
 
 var Products = require('../models/Products')
-var Categories = require('../models/Categories')
 
 var productRouter = express.Router()
 productRouter.use(bodyParser.json())
 
 productRouter.route('/')
   .get(function (req, res, next) {
+    if (req.query.cat) {
+      Products.find({category: req.query.cat}, function (err, products) {
+        if (err) return next(err)
+        res.json(products)
+      })
+      return
+    }
+
     Products.find({}, function (err, products) {
       if (err) return next(err)
       res.json(products)
