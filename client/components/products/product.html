@@ -40,7 +40,7 @@
                 ng-model="productsListCtrl.product.category">
           <option
                   ng-repeat="category in productsListCtrl.categories"
-                  value="{{ category.name }}"
+                  value="{{ category._id }}"
                   >
             {{ category.name }}
           </option>
@@ -57,7 +57,6 @@
         <ul>
           <li>Nom:{{ product.name }}</li>
           <li>Prix:{{ product.price }}</li>
-          <li>Quantité:{{ product.quantity }}</li>
         </ul>
       </a>
     </li>

@@ -3,10 +3,20 @@
     <a ui-sref="products">Retour</a>
     <h3>Détails du Produit</h3>
     Nom: {{ showProductCtrl.product.name }}<br>
-    date: {{ showProductCtrl.product.createdAt }}<br>
+    Prix: {{ showProductCtrl.product.price }}<br>
+    Quantité: {{ showProductCtrl.product.quantity }}<br>
+    Catégorie: {{ showProductCtrl.category.name }}<br>
     <button class="btn btn-info"
             ng-click="showProductCtrl.toggleForm()">
-      Modifier
+      <div ng-if="!showProductCtrl.showForm">
+        <span class="glyphicon glyphicon-pencil"></span>
+        Modifier
+      </div>
+
+      <div ng-if="showProductCtrl.showForm">
+        <span class="glyphicon glyphicon-remove"></span>
+        Cacher
+      </div>
     </button>
 
     <button class="btn btn-danger"
@@ -27,6 +37,25 @@
         <label for="price">Prix:</label>
         <input type="text" class="form-control" name="price" id="price"
                ng-model="showProductCtrl.product.price">
+      </div>
+
+      <div class="form-group">
+        <label for="qty">Quantité:</label>
+        <input type="number" class="form-control" name="qty" id="qty"
+               ng-model="showProductCtrl.product.quantity">
+      </div>
+
+      <div class="form-group">
+        <label for="category">Catégorie:</label>
+        <select name="category" id="category" class="form-control"
+                ng-model="showProductCtrl.product.category">
+          <option
+                  ng-repeat="category in showProductCtrl.categories"
+                  value="{{ category._id }}"
+          >
+            {{ category.name }}
+          </option>
+        </select>
       </div>
 
       <button type="submit" class="btn btn-info">Envoyer</button>

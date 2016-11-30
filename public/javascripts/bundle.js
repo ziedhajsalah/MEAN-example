@@ -37741,7 +37741,7 @@
 /* 24 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\n  <a ui-sref=\"home\">Retour</a>\n  <button class=\"btn btn-success\"\n          ng-click=\"productsListCtrl.toggleForm()\">\n    <div ng-if=\"!productsListCtrl.showForm\">\n      <span class=\"glyphicon glyphicon-plus\"></span>\n      Ajouter\n    </div>\n\n    <div ng-if=\"productsListCtrl.showForm\">\n      <span class=\"glyphicon glyphicon-remove\"></span>\n      Cacher\n    </div>\n  </button>\n\n  <div ng-show=\"productsListCtrl.showForm\">\n    <form ng-submit=\"productsListCtrl\n                      .addProduct(productsListCtrl.product)\">\n      <div class=\"form-group\">\n        <label for=\"name\">Nom:</label>\n        <input type=\"text\" class=\"form-control\" name=\"name\" id=\"name\"\n               ng-model=\"productsListCtrl.product.name\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"price\">Prix:</label>\n        <input type=\"text\" class=\"form-control\" name=\"price\" id=\"price\"\n               ng-model=\"productsListCtrl.product.price\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"qty\">Quantité:</label>\n        <input type=\"number\" class=\"form-control\" name=\"qty\" id=\"qty\"\n               ng-model=\"productsListCtrl.product.quantity\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"category\">Catégorie:</label>\n        <select name=\"category\" id=\"category\" class=\"form-control\"\n                ng-model=\"productsListCtrl.product.category\">\n          <option\n                  ng-repeat=\"category in productsListCtrl.categories\"\n                  value=\"{{ category.name }}\"\n                  >\n            {{ category.name }}\n          </option>\n        </select>\n      </div>\n      <button type=\"submit\" class=\"btn btn-info\">Envoyer</button>\n    </form>\n  </div>\n\n  <h3>products</h3>\n  <ul>\n    <li ng-repeat=\"product in productsListCtrl.products\">\n      <a ui-sref=\"showProduct({ productId: product._id })\">\n        <ul>\n          <li>Nom:{{ product.name }}</li>\n          <li>Prix:{{ product.price }}</li>\n          <li>Quantité:{{ product.quantity }}</li>\n        </ul>\n      </a>\n    </li>\n  </ul>\n</div>"
+	module.exports = "<div>\n  <a ui-sref=\"home\">Retour</a>\n  <button class=\"btn btn-success\"\n          ng-click=\"productsListCtrl.toggleForm()\">\n    <div ng-if=\"!productsListCtrl.showForm\">\n      <span class=\"glyphicon glyphicon-plus\"></span>\n      Ajouter\n    </div>\n\n    <div ng-if=\"productsListCtrl.showForm\">\n      <span class=\"glyphicon glyphicon-remove\"></span>\n      Cacher\n    </div>\n  </button>\n\n  <div ng-show=\"productsListCtrl.showForm\">\n    <form ng-submit=\"productsListCtrl\n                      .addProduct(productsListCtrl.product)\">\n      <div class=\"form-group\">\n        <label for=\"name\">Nom:</label>\n        <input type=\"text\" class=\"form-control\" name=\"name\" id=\"name\"\n               ng-model=\"productsListCtrl.product.name\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"price\">Prix:</label>\n        <input type=\"text\" class=\"form-control\" name=\"price\" id=\"price\"\n               ng-model=\"productsListCtrl.product.price\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"qty\">Quantité:</label>\n        <input type=\"number\" class=\"form-control\" name=\"qty\" id=\"qty\"\n               ng-model=\"productsListCtrl.product.quantity\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"category\">Catégorie:</label>\n        <select name=\"category\" id=\"category\" class=\"form-control\"\n                ng-model=\"productsListCtrl.product.category\">\n          <option\n                  ng-repeat=\"category in productsListCtrl.categories\"\n                  value=\"{{ category._id }}\"\n                  >\n            {{ category.name }}\n          </option>\n        </select>\n      </div>\n      <button type=\"submit\" class=\"btn btn-info\">Envoyer</button>\n    </form>\n  </div>\n\n  <h3>products</h3>\n  <ul>\n    <li ng-repeat=\"product in productsListCtrl.products\">\n      <a ui-sref=\"showProduct({ productId: product._id })\">\n        <ul>\n          <li>Nom:{{ product.name }}</li>\n          <li>Prix:{{ product.price }}</li>\n        </ul>\n      </a>\n    </li>\n  </ul>\n</div>"
 
 /***/ },
 /* 25 */
@@ -37881,7 +37881,7 @@
 /* 29 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\n  <div>\n    <a ui-sref=\"products\">Retour</a>\n    <h3>Détails du Produit</h3>\n    Nom: {{ showProductCtrl.product.name }}<br>\n    date: {{ showProductCtrl.product.createdAt }}<br>\n    <button class=\"btn btn-info\"\n            ng-click=\"showProductCtrl.toggleForm()\">\n      Modifier\n    </button>\n\n    <button class=\"btn btn-danger\"\n            ng-click=\"showProductCtrl\n              .deleteProduct(showProductCtrl.product)\">\n      Supprimer\n    </button>\n  </div>\n  <div ng-show=\"showProductCtrl.showForm\">\n    <form ng-submit=\"showProductCtrl.update(showProductCtrl.product)\">\n      <div class=\"form-group\">\n        <label for=\"name\">Nom:</label>\n        <input type=\"text\" class=\"form-control\" name=\"name\" id=\"name\"\n               ng-model=\"showProductCtrl.product.name\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"price\">Prix:</label>\n        <input type=\"text\" class=\"form-control\" name=\"price\" id=\"price\"\n               ng-model=\"showProductCtrl.product.price\">\n      </div>\n\n      <button type=\"submit\" class=\"btn btn-info\">Envoyer</button>\n    </form>\n  </div>\n</div>"
+	module.exports = "<div>\n  <div>\n    <a ui-sref=\"products\">Retour</a>\n    <h3>Détails du Produit</h3>\n    Nom: {{ showProductCtrl.product.name }}<br>\n    Prix: {{ showProductCtrl.product.price }}<br>\n    Quantité: {{ showProductCtrl.product.quantity }}<br>\n    Catégorie: {{ showProductCtrl.category.name }}<br>\n    <button class=\"btn btn-info\"\n            ng-click=\"showProductCtrl.toggleForm()\">\n      <div ng-if=\"!showProductCtrl.showForm\">\n        <span class=\"glyphicon glyphicon-pencil\"></span>\n        Modifier\n      </div>\n\n      <div ng-if=\"showProductCtrl.showForm\">\n        <span class=\"glyphicon glyphicon-remove\"></span>\n        Cacher\n      </div>\n    </button>\n\n    <button class=\"btn btn-danger\"\n            ng-click=\"showProductCtrl\n              .deleteProduct(showProductCtrl.product)\">\n      Supprimer\n    </button>\n  </div>\n  <div ng-show=\"showProductCtrl.showForm\">\n    <form ng-submit=\"showProductCtrl.update(showProductCtrl.product)\">\n      <div class=\"form-group\">\n        <label for=\"name\">Nom:</label>\n        <input type=\"text\" class=\"form-control\" name=\"name\" id=\"name\"\n               ng-model=\"showProductCtrl.product.name\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"price\">Prix:</label>\n        <input type=\"text\" class=\"form-control\" name=\"price\" id=\"price\"\n               ng-model=\"showProductCtrl.product.price\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"qty\">Quantité:</label>\n        <input type=\"number\" class=\"form-control\" name=\"qty\" id=\"qty\"\n               ng-model=\"showProductCtrl.product.quantity\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"category\">Catégorie:</label>\n        <select name=\"category\" id=\"category\" class=\"form-control\"\n                ng-model=\"showProductCtrl.product.category\">\n          <option\n                  ng-repeat=\"category in showProductCtrl.categories\"\n                  value=\"{{ category._id }}\"\n          >\n            {{ category.name }}\n          </option>\n        </select>\n      </div>\n\n      <button type=\"submit\" class=\"btn btn-info\">Envoyer</button>\n    </form>\n  </div>\n</div>"
 
 /***/ },
 /* 30 */
@@ -37898,14 +37898,15 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var ShowProductController = function () {
-	  ShowProductController.$inject = ["ProductsModel", "$stateParams", "$state"];
-	  function ShowProductController(ProductsModel, $stateParams, $state) {
+	  ShowProductController.$inject = ["ProductsModel", "CategoriesModel", "$stateParams", "$state"];
+	  function ShowProductController(ProductsModel, CategoriesModel, $stateParams, $state) {
 	    'ngInject';
 	
 	    _classCallCheck(this, ShowProductController);
 	
 	    this.$stateParams = $stateParams;
 	    this.ProductsModel = ProductsModel;
+	    this.CategoriesModel = CategoriesModel;
 	    this.$state = $state;
 	    this.showForm = false;
 	    this.productId = this.$stateParams.productId;
@@ -37918,6 +37919,20 @@
 	
 	      this.ProductsModel.getProduct(this.productId).then(function (response) {
 	        _this.product = response.data;
+	        _this.getCategory(_this.product.category);
+	      });
+	
+	      this.CategoriesModel.getCategories().then(function (response) {
+	        _this.categories = response.data;
+	      });
+	    }
+	  }, {
+	    key: 'getCategory',
+	    value: function getCategory(category) {
+	      var _this2 = this;
+	
+	      this.CategoriesModel.getCategory(category).then(function (response) {
+	        _this2.category = response.data;
 	      });
 	    }
 	  }, {
@@ -37928,19 +37943,21 @@
 	  }, {
 	    key: 'update',
 	    value: function update(product) {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      this.ProductsModel.updateProduct(product).then(function (response) {
-	        _this2.product = response.data.product;
+	        _this3.product = response.data.product;
+	        _this3.getCategory(_this3.product.category);
+	        _this3.showForm = false;
 	      });
 	    }
 	  }, {
 	    key: 'deleteProduct',
 	    value: function deleteProduct(product) {
-	      var _this3 = this;
+	      var _this4 = this;
 	
 	      this.ProductsModel.deleteProduct(product).then(function (response) {
-	        return _this3.$state.go('products');
+	        return _this4.$state.go('products');
 	      });
 	    }
 	  }]);

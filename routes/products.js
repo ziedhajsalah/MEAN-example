@@ -1,8 +1,8 @@
 var express = require('express')
-var mongoose = require('mongoose')
 var bodyParser = require('body-parser')
 
 var Products = require('../models/Products')
+var Categories = require('../models/Categories')
 
 var productRouter = express.Router()
 productRouter.use(bodyParser.json())
@@ -16,7 +16,9 @@ productRouter.route('/')
   })
   .post(function (req, res, next) {
     Products.create(req.body, function (err, product) {
-      if (err) return next(err)
+      if (err) {
+        return next(err)
+      }
       var data = {
         message: 'Product created!',
         product: product
@@ -24,6 +26,24 @@ productRouter.route('/')
 
       res.json(data)
     })
+    // Categories.findOne({ name: req.body.category })
+    //   .exec(function (err, cat) {
+    //     if (err) {
+    //       return next(err)
+    //     }
+    //     req.body.category = cat._id
+    //     Products.create(req.body, function (err, product) {
+    //       if (err) {
+    //         return next(err)
+    //       }
+    //       var data = {
+    //         message: 'Product created!',
+    //         product: product
+    //       }
+    //
+    //       res.json(data)
+    //     })
+    //   })
   })
 
 productRouter.route('/:productId')
