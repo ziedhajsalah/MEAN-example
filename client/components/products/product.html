@@ -2,7 +2,15 @@
   <a ui-sref="home">Retour</a>
   <button class="btn btn-success"
           ng-click="productsListCtrl.toggleForm()">
-    Ajouter
+    <div ng-if="!productsListCtrl.showForm">
+      <span class="glyphicon glyphicon-plus"></span>
+      Ajouter
+    </div>
+
+    <div ng-if="productsListCtrl.showForm">
+      <span class="glyphicon glyphicon-remove"></span>
+      Cacher
+    </div>
   </button>
 
   <div ng-show="productsListCtrl.showForm">
@@ -26,6 +34,18 @@
                ng-model="productsListCtrl.product.quantity">
       </div>
 
+      <div class="form-group">
+        <label for="category">Catégorie:</label>
+        <select name="category" id="category" class="form-control"
+                ng-model="productsListCtrl.product.category">
+          <option
+                  ng-repeat="category in productsListCtrl.categories"
+                  value="{{ category.name }}"
+                  >
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
       <button type="submit" class="btn btn-info">Envoyer</button>
     </form>
   </div>

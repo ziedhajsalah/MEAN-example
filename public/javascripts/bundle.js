@@ -60,7 +60,7 @@
 	
 	var _component2 = _interopRequireDefault(_component);
 	
-	var _models = __webpack_require__(33);
+	var _models = __webpack_require__(39);
 	
 	var _models2 = _interopRequireDefault(_models);
 	
@@ -32962,9 +32962,17 @@
 	
 	var _showProduct2 = _interopRequireDefault(_showProduct);
 	
+	var _categories = __webpack_require__(33);
+	
+	var _categories2 = _interopRequireDefault(_categories);
+	
+	var _showCategory = __webpack_require__(38);
+	
+	var _showCategory2 = _interopRequireDefault(_showCategory);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var ComponentsModule = _angular2.default.module('components', [_angularUiRouter2.default]).component('home', _home2.default).component('products', _product2.default).component('showProduct', _showProduct2.default).config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
+	var ComponentsModule = _angular2.default.module('components', [_angularUiRouter2.default]).component('home', _home2.default).component('products', _product2.default).component('showProduct', _showProduct2.default).component('categories', _categories2.default).component('showCategory', _showCategory2.default).config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
 	  'ngInject';
 	
 	  $stateProvider.state('home', {
@@ -32978,6 +32986,12 @@
 	  }).state('showProduct', {
 	    url: '/products/{productId}',
 	    template: '<show-product></show-product>'
+	  }).state('categories', {
+	    url: '/categories',
+	    template: '<categories></categories>'
+	  }).state('showCategory', {
+	    url: '/categories/{catId}',
+	    template: '<show-category></show-category>'
 	  });
 	
 	  $urlRouterProvider.otherwise('/');
@@ -37633,7 +37647,7 @@
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\n  <a ui-sref=\"products\">Voir tous les produits</a>\n</div>"
+	module.exports = "<ul class=\"list-inline\">\n  <li>\n    <a ui-sref=\"products\">Voir tous les produits</a>\n  </li>\n  <li>\n    <a ui-sref=\"categories\">Naviguer par categorie</a>\n  </li>\n</ul>"
 
 /***/ },
 /* 20 */
@@ -37727,7 +37741,7 @@
 /* 24 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\n  <a ui-sref=\"home\">Retour</a>\n  <button class=\"btn btn-success\"\n          ng-click=\"productsListCtrl.toggleForm()\">\n    Ajouter\n  </button>\n\n  <div ng-show=\"productsListCtrl.showForm\">\n    <form ng-submit=\"productsListCtrl\n                      .addProduct(productsListCtrl.product)\">\n      <div class=\"form-group\">\n        <label for=\"name\">Nom:</label>\n        <input type=\"text\" class=\"form-control\" name=\"name\" id=\"name\"\n               ng-model=\"productsListCtrl.product.name\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"price\">Prix:</label>\n        <input type=\"text\" class=\"form-control\" name=\"price\" id=\"price\"\n               ng-model=\"productsListCtrl.product.price\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"qty\">Quantité:</label>\n        <input type=\"number\" class=\"form-control\" name=\"qty\" id=\"qty\"\n               ng-model=\"productsListCtrl.product.quantity\">\n      </div>\n\n      <button type=\"submit\" class=\"btn btn-info\">Envoyer</button>\n    </form>\n  </div>\n\n  <h3>products</h3>\n  <ul>\n    <li ng-repeat=\"product in productsListCtrl.products\">\n      <a ui-sref=\"showProduct({ productId: product._id })\">\n        <ul>\n          <li>Nom:{{ product.name }}</li>\n          <li>Prix:{{ product.price }}</li>\n          <li>Quantité:{{ product.quantity }}</li>\n        </ul>\n      </a>\n    </li>\n  </ul>\n</div>"
+	module.exports = "<div>\n  <a ui-sref=\"home\">Retour</a>\n  <button class=\"btn btn-success\"\n          ng-click=\"productsListCtrl.toggleForm()\">\n    <div ng-if=\"!productsListCtrl.showForm\">\n      <span class=\"glyphicon glyphicon-plus\"></span>\n      Ajouter\n    </div>\n\n    <div ng-if=\"productsListCtrl.showForm\">\n      <span class=\"glyphicon glyphicon-remove\"></span>\n      Cacher\n    </div>\n  </button>\n\n  <div ng-show=\"productsListCtrl.showForm\">\n    <form ng-submit=\"productsListCtrl\n                      .addProduct(productsListCtrl.product)\">\n      <div class=\"form-group\">\n        <label for=\"name\">Nom:</label>\n        <input type=\"text\" class=\"form-control\" name=\"name\" id=\"name\"\n               ng-model=\"productsListCtrl.product.name\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"price\">Prix:</label>\n        <input type=\"text\" class=\"form-control\" name=\"price\" id=\"price\"\n               ng-model=\"productsListCtrl.product.price\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"qty\">Quantité:</label>\n        <input type=\"number\" class=\"form-control\" name=\"qty\" id=\"qty\"\n               ng-model=\"productsListCtrl.product.quantity\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"category\">Catégorie:</label>\n        <select name=\"category\" id=\"category\" class=\"form-control\"\n                ng-model=\"productsListCtrl.product.category\">\n          <option\n                  ng-repeat=\"category in productsListCtrl.categories\"\n                  value=\"{{ category.name }}\"\n                  >\n            {{ category.name }}\n          </option>\n        </select>\n      </div>\n      <button type=\"submit\" class=\"btn btn-info\">Envoyer</button>\n    </form>\n  </div>\n\n  <h3>products</h3>\n  <ul>\n    <li ng-repeat=\"product in productsListCtrl.products\">\n      <a ui-sref=\"showProduct({ productId: product._id })\">\n        <ul>\n          <li>Nom:{{ product.name }}</li>\n          <li>Prix:{{ product.price }}</li>\n          <li>Quantité:{{ product.quantity }}</li>\n        </ul>\n      </a>\n    </li>\n  </ul>\n</div>"
 
 /***/ },
 /* 25 */
@@ -37744,13 +37758,14 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var ProductsController = function () {
-	  ProductsController.$inject = ["ProductsModel"];
-	  function ProductsController(ProductsModel) {
+	  ProductsController.$inject = ["ProductsModel", "CategoriesModel"];
+	  function ProductsController(ProductsModel, CategoriesModel) {
 	    'ngInject';
 	
 	    _classCallCheck(this, ProductsController);
 	
 	    this.ProductsModel = ProductsModel;
+	    this.CategoriesModel = CategoriesModel;
 	    this.showForm = false;
 	    this.product = {};
 	  }
@@ -37762,6 +37777,10 @@
 	
 	      this.ProductsModel.getProducts().then(function (response) {
 	        _this.products = response.data;
+	      });
+	
+	      this.CategoriesModel.getCategories().then(function (response) {
+	        _this.categories = response.data;
 	      });
 	    }
 	  }, {
@@ -37981,22 +38000,168 @@
 	  value: true
 	});
 	
+	var _categories = __webpack_require__(34);
+	
+	var _categories2 = _interopRequireDefault(_categories);
+	
+	var _categories3 = __webpack_require__(35);
+	
+	var _categories4 = _interopRequireDefault(_categories3);
+	
+	__webpack_require__(36);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var categoriesComponent = {
+	  template: _categories2.default,
+	  controller: _categories4.default,
+	  controllerAs: 'categoriesCtrl'
+	};
+	
+	exports.default = categoriesComponent;
+
+/***/ },
+/* 34 */
+/***/ function(module, exports) {
+
+	module.exports = "<div>\n  <a ui-sref=\"home\">Retour</a>\n  <button class=\"btn btn-success\"\n          ng-click=\"categoriesCtrl.toggleForm()\">\n    <div ng-if=\"!categoriesCtrl.showForm\">\n      <span class=\"glyphicon glyphicon-plus\"></span>\n      Ajouter\n    </div>\n\n    <div ng-if=\"categoriesCtrl.showForm\">\n      <span class=\"glyphicon glyphicon-remove\"></span>\n      Cacher\n    </div>\n  </button>\n\n  <div ng-show=\"categoriesCtrl.showForm\">\n    <form ng-submit=\"categoriesCtrl\n                      .addCategory(categoriesCtrl.category)\">\n      <div class=\"form-group\">\n        <label for=\"name\">Nom:</label>\n        <input type=\"text\" class=\"form-control\" name=\"name\" id=\"name\"\n               ng-model=\"categoriesCtrl.category.name\">\n      </div>\n\n      <button type=\"submit\" class=\"btn btn-info\">Envoyer</button>\n    </form>\n  </div>\n\n  <h3>Categories</h3>\n  <ul>\n    <li ng-repeat=\"category in categoriesCtrl.categories\">\n      <a ui-sref=\"showCategory({ catId: category._id })\">\n        <ul>\n          <li>Nom:{{ category.name }}</li>\n        </ul>\n      </a>\n    </li>\n  </ul>\n</div>\n"
+
+/***/ },
+/* 35 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var CategoriesController = function () {
+	  CategoriesController.$inject = ["CategoriesModel"];
+	  function CategoriesController(CategoriesModel) {
+	    'ngInject';
+	
+	    _classCallCheck(this, CategoriesController);
+	
+	    this.CategoriesModel = CategoriesModel;
+	    this.showForm = false;
+	    this.categories = [];
+	    this.category = {};
+	  }
+	
+	  _createClass(CategoriesController, [{
+	    key: '$onInit',
+	    value: function $onInit() {
+	      var _this = this;
+	
+	      this.CategoriesModel.getCategories().then(function (response) {
+	        _this.categories = response.data;
+	      });
+	    }
+	  }, {
+	    key: 'toggleForm',
+	    value: function toggleForm() {
+	      this.showForm = !this.showForm;
+	    }
+	  }, {
+	    key: 'addCategory',
+	    value: function addCategory(category) {
+	      var _this2 = this;
+	
+	      this.CategoriesModel.addCategory(category).then(function (response) {
+	        _this2.categories.push(response.data.category);
+	      });
+	
+	      this.category = {};
+	      this.showForm = false;
+	    }
+	  }]);
+	
+	  return CategoriesController;
+	}();
+	
+	exports.default = CategoriesController;
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(37);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./categories.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./categories.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 38 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _angular = __webpack_require__(10);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _products = __webpack_require__(34);
+	var _products = __webpack_require__(40);
 	
 	var _products2 = _interopRequireDefault(_products);
 	
+	var _categories = __webpack_require__(41);
+	
+	var _categories2 = _interopRequireDefault(_categories);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var ModelsModule = _angular2.default.module('models', []).service('ProductsModel', _products2.default);
+	var ModelsModule = _angular2.default.module('models', []).service('ProductsModel', _products2.default).service('CategoriesModel', _categories2.default);
 	
 	exports.default = ModelsModule;
 
 /***/ },
-/* 34 */
+/* 40 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -38099,6 +38264,109 @@
 	}();
 	
 	exports.default = ProductsModel;
+
+/***/ },
+/* 41 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var CategoriesModel = function () {
+	  CategoriesModel.$inject = ["$http", "$q"];
+	  function CategoriesModel($http, $q) {
+	    'ngInject';
+	
+	    _classCallCheck(this, CategoriesModel);
+	
+	    this.$http = $http;
+	    this.$q = $q;
+	    this.categories = [];
+	  }
+	
+	  _createClass(CategoriesModel, [{
+	    key: 'getCategories',
+	    value: function getCategories() {
+	      var deferred = this.$q.defer();
+	      this.$http.get('/categories').then(function (data) {
+	        deferred.resolve(data);
+	      }, function (error) {
+	        deferred.reject(error);
+	      });
+	
+	      this.categories = deferred.promise;
+	
+	      return this.$q.when(this.categories);
+	    }
+	  }, {
+	    key: 'addCategory',
+	    value: function addCategory(category) {
+	      var deferred = this.$q.defer();
+	      this.$http.post('/categories', category).then(function (data) {
+	        deferred.resolve(data);
+	      }, function (error) {
+	        deferred.reject(error);
+	      });
+	
+	      var newCategory = deferred.promise;
+	
+	      return this.$q.when(newCategory);
+	    }
+	  }, {
+	    key: 'getCategory',
+	    value: function getCategory(category) {
+	      var deferred = this.$q.defer();
+	      this.$http.get('/categories/' + category).then(function (data) {
+	        deferred.resolve(data);
+	      }, function (error) {
+	        deferred.reject(error);
+	      });
+	
+	      var fetchedCategory = deferred.promise;
+	
+	      return this.$q.when(fetchedCategory);
+	    }
+	  }, {
+	    key: 'updateCategory',
+	    value: function updateCategory(category) {
+	      var deferred = this.$q.defer();
+	      this.$http.put('/categories/' + category._id, category).then(function (data) {
+	        deferred.resolve(data);
+	      }, function (error) {
+	        deferred.reject(error);
+	      });
+	
+	      var updatedCategory = deferred.promise;
+	
+	      return this.$q.when(updatedCategory);
+	    }
+	  }, {
+	    key: 'deleteCategory',
+	    value: function deleteCategory(category) {
+	      var deferred = this.$q.defer();
+	      this.$http.delete('/categories/' + category._id, category).then(function (data) {
+	        deferred.resolve(data);
+	      }, function (error) {
+	        deferred.reject(error);
+	      });
+	
+	      var deletedCategory = deferred.promise;
+	
+	      return this.$q.when(deletedCategory);
+	    }
+	  }]);
+	
+	  return CategoriesModel;
+	}();
+	
+	exports.default = CategoriesModel;
 
 /***/ }
 /******/ ]);

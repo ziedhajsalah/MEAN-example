@@ -1,8 +1,9 @@
 class ProductsController {
-  constructor (ProductsModel) {
+  constructor (ProductsModel, CategoriesModel) {
     'ngInject'
 
     this.ProductsModel = ProductsModel
+    this.CategoriesModel = CategoriesModel
     this.showForm = false
     this.product = {}
   }
@@ -10,6 +11,11 @@ class ProductsController {
     this.ProductsModel.getProducts()
       .then(response => {
         this.products = response.data
+      })
+
+    this.CategoriesModel.getCategories()
+      .then(response => {
+        this.categories = response.data
       })
   }
   toggleForm () {
