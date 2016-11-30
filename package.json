@@ -5,8 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "watch": "nodemon ./bin/www",
-    "build": "webpack",
-    "build:watch": "webpack -w"
+    "build": "webpack --progress",
+    "build:watch": "webpack -w --progress"
   },
   "dependencies": {
     "angular": "^1.5.9",
@@ -17,6 +17,7 @@
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
     "express": "~4.13.1",
+    "mongoose-currency": "^0.2.0",
     "morgan": "~1.6.1",
     "passport-local": "^1.0.0",
     "serve-favicon": "~2.3.0"
