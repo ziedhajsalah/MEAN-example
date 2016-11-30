@@ -37843,7 +37843,7 @@
 /* 29 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\n  <div>\n    <h3>Product Details</h3>\n    {{ showProductCtrl.product.name }}<br>\n    {{ showProductCtrl.product.createdAt }}<br>\n  </div>\n</div>"
+	module.exports = "<div>\n  <div>\n    <a ui-sref=\"products\">Retour</a>\n    <h3>Détails du Produit</h3>\n    Nom: {{ showProductCtrl.product.name }}<br>\n    date: {{ showProductCtrl.product.createdAt }}<br>\n  </div>\n</div>"
 
 /***/ },
 /* 30 */
