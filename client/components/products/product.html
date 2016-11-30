@@ -3,7 +3,12 @@
   <h3>products</h3>
   <ul>
     <li ng-repeat="product in productsListCtrl.products">
-      {{ product.createdAt }}
+      <a ui-sref="showProduct({ productId: product._id })">
+        <ul>
+          <li>Nom:{{ product.name }}</li>
+          <li>date:{{ product.createdAt }}</li>
+        </ul>
+      </a>
     </li>
   </ul>
 </div>

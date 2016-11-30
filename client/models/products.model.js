@@ -9,7 +9,7 @@ class ProductsModel {
     this.getProducts = this.getProducts.bind(this)
   }
   getProducts () {
-    var deferred = this.$q.defer()
+    const deferred = this.$q.defer()
     this.$http.get('/products')
       .then(function (data) {
         deferred.resolve(data)
@@ -20,6 +20,19 @@ class ProductsModel {
     this.products = deferred.promise
 
     return this.$q.when(this.products)
+  }
+  getProduct (product) {
+    const deferred = this.$q.defer()
+    this.$http.get('/products/' + product)
+      .then(data => {
+        deferred.resolve(data)
+      }, error => {
+        deferred.reject(error)
+      })
+
+    const fetchedProduct = deferred.promise
+
+    return this.$q.when(fetchedProduct)
   }
 }
 

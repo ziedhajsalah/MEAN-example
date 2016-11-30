@@ -60,7 +60,7 @@
 	
 	var _component2 = _interopRequireDefault(_component);
 	
-	var _models = __webpack_require__(28);
+	var _models = __webpack_require__(33);
 	
 	var _models2 = _interopRequireDefault(_models);
 	
@@ -32958,9 +32958,13 @@
 	
 	var _product2 = _interopRequireDefault(_product);
 	
+	var _showProduct = __webpack_require__(28);
+	
+	var _showProduct2 = _interopRequireDefault(_showProduct);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var ComponentsModule = _angular2.default.module('components', [_angularUiRouter2.default]).component('home', _home2.default).component('products', _product2.default).config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
+	var ComponentsModule = _angular2.default.module('components', [_angularUiRouter2.default]).component('home', _home2.default).component('products', _product2.default).component('showProduct', _showProduct2.default).config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
 	  'ngInject';
 	
 	  $stateProvider.state('home', {
@@ -32971,6 +32975,9 @@
 	    url: '/products',
 	    // component: 'products'
 	    template: '<products></products>'
+	  }).state('showProduct', {
+	    url: '/products/{productId}',
+	    template: '<show-product></show-product>'
 	  });
 	
 	  $urlRouterProvider.otherwise('/');
@@ -37720,7 +37727,7 @@
 /* 24 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\n  <a ui-sref=\"home\">Retour</a>\n  <h3>products</h3>\n  <ul>\n    <li ng-repeat=\"product in productsListCtrl.products\">\n      {{ product.createdAt }}\n    </li>\n  </ul>\n</div>"
+	module.exports = "<div>\n  <a ui-sref=\"home\">Retour</a>\n  <h3>products</h3>\n  <ul>\n    <li ng-repeat=\"product in productsListCtrl.products\">\n      <a ui-sref=\"showProduct({ productId: product._id })\">\n        <ul>\n          <li>Nom:{{ product.name }}</li>\n          <li>date:{{ product.createdAt }}</li>\n        </ul>\n      </a>\n    </li>\n  </ul>\n</div>"
 
 /***/ },
 /* 25 */
@@ -37812,11 +37819,131 @@
 	  value: true
 	});
 	
+	var _showProduct = __webpack_require__(29);
+	
+	var _showProduct2 = _interopRequireDefault(_showProduct);
+	
+	var _showProduct3 = __webpack_require__(30);
+	
+	var _showProduct4 = _interopRequireDefault(_showProduct3);
+	
+	__webpack_require__(31);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var showProductComponent = {
+	  template: _showProduct2.default,
+	  controller: _showProduct4.default,
+	  controllerAs: 'showProductCtrl'
+	};
+	
+	exports.default = showProductComponent;
+
+/***/ },
+/* 29 */
+/***/ function(module, exports) {
+
+	module.exports = "<div>\n  <div>\n    <h3>Product Details</h3>\n    {{ showProductCtrl.product.name }}<br>\n    {{ showProductCtrl.product.createdAt }}<br>\n  </div>\n</div>"
+
+/***/ },
+/* 30 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var ShowProductController = function () {
+	  ShowProductController.$inject = ["ProductsModel", "$stateParams"];
+	  function ShowProductController(ProductsModel, $stateParams) {
+	    'ngInject';
+	
+	    _classCallCheck(this, ShowProductController);
+	
+	    this.$stateParams = $stateParams;
+	    this.ProductsModel = ProductsModel;
+	
+	    this.productId = this.$stateParams.productId;
+	  }
+	
+	  _createClass(ShowProductController, [{
+	    key: '$onInit',
+	    value: function $onInit() {
+	      var _this = this;
+	
+	      this.ProductsModel.getProduct(this.productId).then(function (response) {
+	        console.log(response);
+	        _this.product = response.data;
+	      });
+	    }
+	  }]);
+	
+	  return ShowProductController;
+	}();
+	
+	exports.default = ShowProductController;
+
+/***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(32);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./showProduct.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./showProduct.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _angular = __webpack_require__(10);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _products = __webpack_require__(29);
+	var _products = __webpack_require__(34);
 	
 	var _products2 = _interopRequireDefault(_products);
 	
@@ -37827,7 +37954,7 @@
 	exports.default = ModelsModule;
 
 /***/ },
-/* 29 */
+/* 34 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -37867,6 +37994,20 @@
 	      this.products = deferred.promise;
 	
 	      return this.$q.when(this.products);
+	    }
+	  }, {
+	    key: 'getProduct',
+	    value: function getProduct(product) {
+	      var deferred = this.$q.defer();
+	      this.$http.get('/products/' + product).then(function (data) {
+	        deferred.resolve(data);
+	      }, function (error) {
+	        deferred.reject(error);
+	      });
+	
+	      var fetchedProduct = deferred.promise;
+	
+	      return this.$q.when(fetchedProduct);
 	    }
 	  }]);
 	
