@@ -1,0 +1,9 @@
+<div class="sidebar-wrapper">
+  <ul class="sidebar-nav">
+    <li ng-repeat="category in sideBarCtrl.categories">
+      <a href="#/categories/{{ category._id }}">
+        {{ category.name }}
+      </a>
+    </li>
+  </ul>
+</div>

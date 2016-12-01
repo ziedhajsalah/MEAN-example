@@ -1,15 +1,15 @@
-<a ui-sref="categories">
-  <button class="btn btn-default">
-    Retour
-  </button>
-</a>
-<ul>
-  <li ng-repeat="product in showCategoryCtrl.products">
+<h3>{{ showCategoryCtrl.category.name }}</h3>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-4 col-md-3 product-box"
+    ng-repeat="product in showCategoryCtrl.products">
+    {{ product.name }}
+
     <a ui-sref="showProduct({ productId: product._id })">
       <ul>
         <li>Nom:{{ product.name }}</li>
         <li>Prix:{{ product.price }}</li>
       </ul>
     </a>
-  </li>
-</ul>
+  </div>
+</div>

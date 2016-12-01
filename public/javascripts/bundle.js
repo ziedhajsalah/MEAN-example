@@ -52,40 +52,48 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _app = __webpack_require__(12);
+	var _angularUiRouter = __webpack_require__(12);
+	
+	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
+	
+	var _app = __webpack_require__(13);
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	var _component = __webpack_require__(16);
+	var _component = __webpack_require__(17);
 	
 	var _component2 = _interopRequireDefault(_component);
 	
-	var _models = __webpack_require__(43);
+	var _models = __webpack_require__(53);
 	
 	var _models2 = _interopRequireDefault(_models);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	_angular2.default.module('app', [
-	// uiRouter,
-	_component2.default.name, _models2.default.name]).component('app', _app2.default);
-	// .config(($stateProvider, $urlRouterProvider) => {
-	//   'ngInject'
-	//
-	//   $stateProvider
-	//     .state('home', {
-	//       url: '/',
-	//       component: 'home'
-	//     })
-	//     .state('products', {
-	//       url: '/products',
-	//       component: 'products'
-	//     })
-	//
-	//   $urlRouterProvider.otherwise('/')
-	// })
+	_angular2.default.module('app', [_angularUiRouter2.default, _component2.default.name, _models2.default.name]).component('app', _app2.default).config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
+	  'ngInject';
 	
-	// import uiRouter from 'angular-ui-router'
+	  $stateProvider.state('home', {
+	    url: '/',
+	    // component: 'home'
+	    template: '<home></home>'
+	  }).state('products', {
+	    url: '/products',
+	    // component: 'products'
+	    template: '<products></products>'
+	  }).state('showProduct', {
+	    url: '/products/{productId}',
+	    template: '<show-product></show-product>'
+	  }).state('categories', {
+	    url: '/categories',
+	    template: '<categories></categories>'
+	  }).state('showCategory', {
+	    url: '/categories/{catId}',
+	    template: '<show-category></show-category>'
+	  });
+	
+	  $urlRouterProvider.otherwise('/');
+	}]);
 
 /***/ },
 /* 1 */
@@ -32864,143 +32872,6 @@
 
 /***/ },
 /* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _app = __webpack_require__(13);
-	
-	var _app2 = _interopRequireDefault(_app);
-	
-	__webpack_require__(14);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var appComponent = {
-	  template: _app2.default
-	};
-	
-	exports.default = appComponent;
-
-/***/ },
-/* 13 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"container\">\n  <ui-view></ui-view>\n</div>"
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(15);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(9)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../node_modules/css-loader/index.js!./app.css", function() {
-				var newContent = require("!!./../node_modules/css-loader/index.js!./app.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(3)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, "", ""]);
-	
-	// exports
-
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _angular = __webpack_require__(10);
-	
-	var _angular2 = _interopRequireDefault(_angular);
-	
-	var _angularUiRouter = __webpack_require__(17);
-	
-	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
-	
-	var _home = __webpack_require__(18);
-	
-	var _home2 = _interopRequireDefault(_home);
-	
-	var _product = __webpack_require__(23);
-	
-	var _product2 = _interopRequireDefault(_product);
-	
-	var _showProduct = __webpack_require__(28);
-	
-	var _showProduct2 = _interopRequireDefault(_showProduct);
-	
-	var _categories = __webpack_require__(33);
-	
-	var _categories2 = _interopRequireDefault(_categories);
-	
-	var _showCategory = __webpack_require__(38);
-	
-	var _showCategory2 = _interopRequireDefault(_showCategory);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ComponentsModule = _angular2.default.module('components', [_angularUiRouter2.default]).component('home', _home2.default).component('products', _product2.default).component('showProduct', _showProduct2.default).component('categories', _categories2.default).component('showCategory', _showCategory2.default).config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
-	  'ngInject';
-	
-	  $stateProvider.state('home', {
-	    url: '/',
-	    // component: 'home'
-	    template: '<home></home>'
-	  }).state('products', {
-	    url: '/products',
-	    // component: 'products'
-	    template: '<products></products>'
-	  }).state('showProduct', {
-	    url: '/products/{productId}',
-	    template: '<show-product></show-product>'
-	  }).state('categories', {
-	    url: '/categories',
-	    template: '<categories></categories>'
-	  }).state('showCategory', {
-	    url: '/categories/{catId}',
-	    template: '<show-category></show-category>'
-	  });
-	
-	  $urlRouterProvider.otherwise('/');
-	}]);
-	
-	exports.default = ComponentsModule;
-
-/***/ },
-/* 17 */
 /***/ function(module, exports) {
 
 	/**
@@ -37614,6 +37485,124 @@
 	})(window, window.angular);
 
 /***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _app = __webpack_require__(14);
+	
+	var _app2 = _interopRequireDefault(_app);
+	
+	__webpack_require__(15);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var appComponent = {
+	  template: _app2.default
+	};
+	
+	exports.default = appComponent;
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	module.exports = "<nav-bar></nav-bar>\n\n<div class=\"container\" id=\"content-container\">\n  <div class=\"row\">\n    <div class=\"col-sm-2 hidden-xs\">\n      <side-bar></side-bar>\n    </div>\n    <div class=\"col-sm-10\">\n      <ui-view></ui-view>\n    </div>\n  </div>\n</div>\n"
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(16);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../node_modules/css-loader/index.js!./app.css", function() {
+				var newContent = require("!!./../node_modules/css-loader/index.js!./app.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "#content-container {\n    margin-left: 0 !important;\n    padding-left: 0 !important;\n}", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _angular = __webpack_require__(10);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _home = __webpack_require__(18);
+	
+	var _home2 = _interopRequireDefault(_home);
+	
+	var _product = __webpack_require__(23);
+	
+	var _product2 = _interopRequireDefault(_product);
+	
+	var _showProduct = __webpack_require__(28);
+	
+	var _showProduct2 = _interopRequireDefault(_showProduct);
+	
+	var _categories = __webpack_require__(33);
+	
+	var _categories2 = _interopRequireDefault(_categories);
+	
+	var _showCategory = __webpack_require__(38);
+	
+	var _showCategory2 = _interopRequireDefault(_showCategory);
+	
+	var _navbar = __webpack_require__(43);
+	
+	var _navbar2 = _interopRequireDefault(_navbar);
+	
+	var _sidebar = __webpack_require__(48);
+	
+	var _sidebar2 = _interopRequireDefault(_sidebar);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ComponentsModule = _angular2.default.module('components', []).component('home', _home2.default).component('products', _product2.default).component('showProduct', _showProduct2.default).component('categories', _categories2.default).component('showCategory', _showCategory2.default).component('navBar', _navbar2.default).component('sideBar', _sidebar2.default);
+	
+	exports.default = ComponentsModule;
+
+/***/ },
 /* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -38177,7 +38166,7 @@
 /* 39 */
 /***/ function(module, exports) {
 
-	module.exports = "<a ui-sref=\"categories\">\n  <button class=\"btn btn-default\">\n    Retour\n  </button>\n</a>\n<ul>\n  <li ng-repeat=\"product in showCategoryCtrl.products\">\n    <a ui-sref=\"showProduct({ productId: product._id })\">\n      <ul>\n        <li>Nom:{{ product.name }}</li>\n        <li>Prix:{{ product.price }}</li>\n      </ul>\n    </a>\n  </li>\n</ul>\n"
+	module.exports = "<h3>{{ showCategoryCtrl.category.name }}</h3>\n\n<div class=\"row\">\n  <div class=\"col-xs-12 col-sm-4 col-md-3 product-box\"\n    ng-repeat=\"product in showCategoryCtrl.products\">\n    {{ product.name }}\n\n    <a ui-sref=\"showProduct({ productId: product._id })\">\n      <ul>\n        <li>Nom:{{ product.name }}</li>\n        <li>Prix:{{ product.price }}</li>\n      </ul>\n    </a>\n  </div>\n</div>\n"
 
 /***/ },
 /* 40 */
@@ -38267,7 +38256,7 @@
 	
 	
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, ".product-box {\n    margin: 5px;\n    border: 1px solid grey;\n    border-radius: 4px;\n    background-color: darkgray;\n}\n\n.product-box li {\n    color: black;\n}", ""]);
 	
 	// exports
 
@@ -38282,15 +38271,236 @@
 	  value: true
 	});
 	
+	var _navbar = __webpack_require__(44);
+	
+	var _navbar2 = _interopRequireDefault(_navbar);
+	
+	var _navbar3 = __webpack_require__(45);
+	
+	var _navbar4 = _interopRequireDefault(_navbar3);
+	
+	__webpack_require__(46);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var navBarComponent = {
+	  template: _navbar2.default,
+	  controller: _navbar4.default,
+	  controllerAs: 'navBarCtrl'
+	};
+	
+	exports.default = navBarComponent;
+
+/***/ },
+/* 44 */
+/***/ function(module, exports) {
+
+	module.exports = "<nav class=\"navbar navbar-default\" id=\"main-navbar\">\n  <div class=\"container-fluid\">\n    <!-- Brand and toggle get grouped for better mobile display -->\n    <div class=\"navbar-header\">\n      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\"\n              data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand\" href=\"#\">Boutique</a>\n    </div>\n\n    <form class=\"navbar-form navbar-left\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"Je suis à la recherche de ...\">\n      </div>\n      <button type=\"submit\" class=\"btn btn-default\">CHERCHER</button>\n    </form>\n\n    <!-- Collect the nav links, forms, and other content for toggling -->\n    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li><a href=\"#\">Connection</a></li>\n        <li><a href=\"#\">Inscription</a></li>\n        <li class=\"dropdown\">\n          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\"\n             aria-expanded=\"false\">Utilisateur <span class=\"caret\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li><a href=\"#\">Action</a></li>\n            <li><a href=\"#\">Another action</a></li>\n            <li><a href=\"#\">Something else here</a></li>\n            <li role=\"separator\" class=\"divider\"></li>\n            <li><a href=\"#\">Separated link</a></li>\n          </ul>\n        </li>\n      </ul>\n    </div><!-- /.navbar-collapse -->\n  </div><!-- /.container-fluid -->\n</nav>\n"
+
+/***/ },
+/* 45 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var NavBarController = function () {
+	  function NavBarController() {
+	    _classCallCheck(this, NavBarController);
+	  }
+	
+	  _createClass(NavBarController, [{
+	    key: "constractor",
+	    value: function constractor() {}
+	  }]);
+	
+	  return NavBarController;
+	}();
+	
+	exports.default = NavBarController;
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(47);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./navbar.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./navbar.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "#main-navbar {\n    border-radius: 0;\n    height: 70px !important;\n    vertical-align: middle;\n    margin: auto;\n}", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _sidebar = __webpack_require__(49);
+	
+	var _sidebar2 = _interopRequireDefault(_sidebar);
+	
+	var _sidebar3 = __webpack_require__(50);
+	
+	var _sidebar4 = _interopRequireDefault(_sidebar3);
+	
+	__webpack_require__(51);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var sideBarComponent = {
+	  template: _sidebar2.default,
+	  controller: _sidebar4.default,
+	  controllerAs: 'sideBarCtrl'
+	};
+	
+	exports.default = sideBarComponent;
+
+/***/ },
+/* 49 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"sidebar-wrapper\">\n  <ul class=\"sidebar-nav\">\n    <li ng-repeat=\"category in sideBarCtrl.categories\">\n      <a href=\"#/categories/{{ category._id }}\">\n        {{ category.name }}\n      </a>\n    </li>\n  </ul>\n</div>\n"
+
+/***/ },
+/* 50 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var SideBarController = function () {
+	  SideBarController.$inject = ["CategoriesModel"];
+	  function SideBarController(CategoriesModel) {
+	    'ngInject';
+	
+	    _classCallCheck(this, SideBarController);
+	
+	    this.CategoriesModel = CategoriesModel;
+	  }
+	
+	  _createClass(SideBarController, [{
+	    key: '$onInit',
+	    value: function $onInit() {
+	      var _this = this;
+	
+	      this.CategoriesModel.getCategories().then(function (response) {
+	        _this.categories = response.data;
+	      });
+	    }
+	  }]);
+	
+	  return SideBarController;
+	}();
+	
+	exports.default = SideBarController;
+
+/***/ },
+/* 51 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(52);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./sidebar.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./sidebar.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 52 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".sidebar-wrapper {\n    position: fixed;\n    overflow-y: scroll;\n    background: darkgray;\n    height: 100%;\n    margin-left: -250px;\n    left: 250px;\n    /*bottom: -5px;*/\n    top: 70px;\n}\n\n.sidebar-nav {\n    position: relative;\n    width: 100%;\n    list-style: none;\n    padding-left: 20px;\n    padding-right: 20px;\n}\n\n.sidebar-nav li {\n    line-height: 40px;\n}\n\n.sidebar-nav li a {\n    text-decoration: none;\n    color: #000;\n    display: block;\n}\n\n.sidebar-nav li a:hover {\n    text-decoration: none;\n    color: #fff;\n    background: grey;\n}\n\n.sidebar-wrapper::-webkit-scrollbar {\n    width: 12px;\n}\n\n.sidebar-wrapper::-webkit-scrollbar-track {\n    background-color: #eaeaea;\n    border-left: 1px solid #ccc;\n}\n\n.sidebar-wrapper::-webkit-scrollbar-thumb {\n    background-color: #ccc;\n}\n\n.sidebar-wrapper::-webkit-scrollbar-thumb:hover {\n    background-color: #aaa;\n}\n", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 53 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _angular = __webpack_require__(10);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _products = __webpack_require__(44);
+	var _products = __webpack_require__(54);
 	
 	var _products2 = _interopRequireDefault(_products);
 	
-	var _categories = __webpack_require__(45);
+	var _categories = __webpack_require__(55);
 	
 	var _categories2 = _interopRequireDefault(_categories);
 	
@@ -38301,7 +38511,7 @@
 	exports.default = ModelsModule;
 
 /***/ },
-/* 44 */
+/* 54 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -38420,7 +38630,7 @@
 	exports.default = ProductsModel;
 
 /***/ },
-/* 45 */
+/* 55 */
 /***/ function(module, exports) {
 
 	'use strict';
