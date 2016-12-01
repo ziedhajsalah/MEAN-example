@@ -60,7 +60,7 @@
 	
 	var _component2 = _interopRequireDefault(_component);
 	
-	var _models = __webpack_require__(39);
+	var _models = __webpack_require__(43);
 	
 	var _models2 = _interopRequireDefault(_models);
 	
@@ -38153,15 +38153,15 @@
 	  value: true
 	});
 	
-	var _showCategory = __webpack_require__(42);
+	var _showCategory = __webpack_require__(39);
 	
 	var _showCategory2 = _interopRequireDefault(_showCategory);
 	
-	var _showCategory3 = __webpack_require__(43);
+	var _showCategory3 = __webpack_require__(40);
 	
 	var _showCategory4 = _interopRequireDefault(_showCategory3);
 	
-	__webpack_require__(44);
+	__webpack_require__(41);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -38175,6 +38175,105 @@
 
 /***/ },
 /* 39 */
+/***/ function(module, exports) {
+
+	module.exports = "<a ui-sref=\"categories\">\n  <button class=\"btn btn-default\">\n    Retour\n  </button>\n</a>\n<ul>\n  <li ng-repeat=\"product in showCategoryCtrl.products\">\n    <a ui-sref=\"showProduct({ productId: product._id })\">\n      <ul>\n        <li>Nom:{{ product.name }}</li>\n        <li>Prix:{{ product.price }}</li>\n      </ul>\n    </a>\n  </li>\n</ul>\n"
+
+/***/ },
+/* 40 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var ShowCategoryController = function () {
+	  ShowCategoryController.$inject = ["ProductsModel", "CategoriesModel", "$stateParams"];
+	  function ShowCategoryController(ProductsModel, CategoriesModel, $stateParams) {
+	    'ngInject';
+	
+	    _classCallCheck(this, ShowCategoryController);
+	
+	    this.ProductsModel = ProductsModel;
+	    this.CategoriesModel = CategoriesModel;
+	    this.$stateParams = $stateParams;
+	    this.catId = this.$stateParams.catId;
+	  }
+	
+	  _createClass(ShowCategoryController, [{
+	    key: '$onInit',
+	    value: function $onInit() {
+	      var _this = this;
+	
+	      this.CategoriesModel.getCategory(this.catId).then(function (response) {
+	        _this.category = response.data;
+	        _this.getProducts();
+	      });
+	    }
+	  }, {
+	    key: 'getProducts',
+	    value: function getProducts() {
+	      var _this2 = this;
+	
+	      this.ProductsModel.getCategoryProducts(this.category).then(function (response) {
+	        _this2.products = response.data;
+	      });
+	    }
+	  }]);
+	
+	  return ShowCategoryController;
+	}();
+	
+	exports.default = ShowCategoryController;
+
+/***/ },
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(42);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./showCategory.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./showCategory.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38187,11 +38286,11 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _products = __webpack_require__(40);
+	var _products = __webpack_require__(44);
 	
 	var _products2 = _interopRequireDefault(_products);
 	
-	var _categories = __webpack_require__(41);
+	var _categories = __webpack_require__(45);
 	
 	var _categories2 = _interopRequireDefault(_categories);
 	
@@ -38202,7 +38301,7 @@
 	exports.default = ModelsModule;
 
 /***/ },
-/* 40 */
+/* 44 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -38321,7 +38420,7 @@
 	exports.default = ProductsModel;
 
 /***/ },
-/* 41 */
+/* 45 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -38422,105 +38521,6 @@
 	}();
 	
 	exports.default = CategoriesModel;
-
-/***/ },
-/* 42 */
-/***/ function(module, exports) {
-
-	module.exports = "<a ui-sref=\"categories\">\n  <button class=\"btn btn-default\">\n    Retour\n  </button>\n</a>\n<ul>\n  <li ng-repeat=\"product in showCategoryCtrl.products\">\n    <a ui-sref=\"showProduct({ productId: product._id })\">\n      <ul>\n        <li>Nom:{{ product.name }}</li>\n        <li>Prix:{{ product.price }}</li>\n      </ul>\n    </a>\n  </li>\n</ul>\n"
-
-/***/ },
-/* 43 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var ShowCategoryController = function () {
-	  ShowCategoryController.$inject = ["ProductsModel", "CategoriesModel", "$stateParams"];
-	  function ShowCategoryController(ProductsModel, CategoriesModel, $stateParams) {
-	    'ngInject';
-	
-	    _classCallCheck(this, ShowCategoryController);
-	
-	    this.ProductsModel = ProductsModel;
-	    this.CategoriesModel = CategoriesModel;
-	    this.$stateParams = $stateParams;
-	    this.catId = this.$stateParams.catId;
-	  }
-	
-	  _createClass(ShowCategoryController, [{
-	    key: '$onInit',
-	    value: function $onInit() {
-	      var _this = this;
-	
-	      this.CategoriesModel.getCategory(this.catId).then(function (response) {
-	        _this.category = response.data;
-	        _this.getProducts();
-	      });
-	    }
-	  }, {
-	    key: 'getProducts',
-	    value: function getProducts() {
-	      var _this2 = this;
-	
-	      this.ProductsModel.getCategoryProducts(this.category).then(function (response) {
-	        _this2.products = response.data;
-	      });
-	    }
-	  }]);
-	
-	  return ShowCategoryController;
-	}();
-	
-	exports.default = ShowCategoryController;
-
-/***/ },
-/* 44 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(45);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(9)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./showCategory.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./showCategory.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 45 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(3)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, "", ""]);
-	
-	// exports
-
 
 /***/ }
 /******/ ]);
