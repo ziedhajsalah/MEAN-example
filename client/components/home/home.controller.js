@@ -11,7 +11,7 @@ class HomeController {
       .then(response => {
         this.categories = response.data
         this.categories.map(category => {
-          this.ProductsModel.getCategoryProducts(category)
+          this.ProductsModel.getCategoryProducts(category, 4)
             .then(res => {
               category.products = res.data
             })

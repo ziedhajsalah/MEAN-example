@@ -8,18 +8,24 @@ productRouter.use(bodyParser.json())
 
 productRouter.route('/')
   .get(function (req, res, next) {
+    var limit = req.query.limit
+      ? parseInt(req.query.limit)
+      : 0
+
     if (req.query.cat) {
-      Products.find({category: req.query.cat}, function (err, products) {
-        if (err) return next(err)
-        res.json(products)
-      })
+      Products.find({ category: req.query.cat }).limit(limit)
+        .exec(function (err, products) {
+          if (err) return next(err)
+          res.json(products)
+        })
       return
     }
 
-    Products.find({}, function (err, products) {
-      if (err) return next(err)
-      res.json(products)
-    })
+    Products.find({}).limit(limit)
+      .exec(function (err, products) {
+        if (err) return next(err)
+        res.json(products)
+      })
   })
   .post(function (req, res, next) {
     Products.create(req.body, function (err, product) {

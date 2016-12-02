@@ -79,9 +79,10 @@ class ProductsModel {
     return this.$q.when(deletedProduct)
   }
 
-  getCategoryProducts (category) {
+  getCategoryProducts (category, limit) {
+    const queryLimit = limit || 0
     const deferred = this.$q.defer()
-    this.$http.get('/products?cat=' + category._id)
+    this.$http.get(`/products?cat=${category._id}&limit=${queryLimit}`)
       .then(data => {
         deferred.resolve(data)
       }, error => {

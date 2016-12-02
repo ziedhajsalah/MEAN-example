@@ -37711,7 +37711,7 @@
 	      this.CategoriesModel.getCategories().then(function (response) {
 	        _this.categories = response.data;
 	        _this.categories.map(function (category) {
-	          _this.ProductsModel.getCategoryProducts(category).then(function (res) {
+	          _this.ProductsModel.getCategoryProducts(category, 4).then(function (res) {
 	            category.products = res.data;
 	          });
 	        });
@@ -38638,9 +38638,10 @@
 	    }
 	  }, {
 	    key: 'getCategoryProducts',
-	    value: function getCategoryProducts(category) {
+	    value: function getCategoryProducts(category, limit) {
+	      var queryLimit = limit || 0;
 	      var deferred = this.$q.defer();
-	      this.$http.get('/products?cat=' + category._id).then(function (data) {
+	      this.$http.get('/products?cat=' + category._id + '&limit=' + queryLimit).then(function (data) {
 	        deferred.resolve(data);
 	      }, function (error) {
 	        deferred.reject(error);
