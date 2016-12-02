@@ -37512,7 +37512,7 @@
 /* 14 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav-bar></nav-bar>\n\n<div class=\"container\" id=\"content-container\">\n  <div class=\"row\">\n    <div class=\"col-sm-2 hidden-xs\">\n      <side-bar></side-bar>\n    </div>\n    <div class=\"col-sm-10\">\n      <ui-view></ui-view>\n    </div>\n  </div>\n</div>\n"
+	module.exports = "<nav-bar></nav-bar>\n\n<div class=\"container\" id=\"content-container\">\n  <div class=\"row\">\n    <div class=\"col-sm-2 hidden-xs\">\n      <side-bar></side-bar>\n    </div>\n    <div class=\"col-sm-10\" id=\"main-content\">\n      <ui-view></ui-view>\n    </div>\n  </div>\n</div>\n"
 
 /***/ },
 /* 15 */
@@ -37549,7 +37549,7 @@
 	
 	
 	// module
-	exports.push([module.id, "#content-container {\n    margin-left: 0 !important;\n    padding-left: 0 !important;\n}", ""]);
+	exports.push([module.id, "#content-container {\n    margin-left: 0 !important;\n    padding-left: 0 !important;\n}\n\n#main-content {\n    margin-top: 80px;\n}", ""]);
 	
 	// exports
 
@@ -37636,7 +37636,7 @@
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = "<ul class=\"list-inline\">\n  <li>\n    <a ui-sref=\"products\">Voir tous les produits</a>\n  </li>\n  <li>\n    <a ui-sref=\"categories\">Naviguer par categorie</a>\n  </li>\n</ul>"
+	module.exports = "<section ng-repeat=\"category in homeCtrl.categories\"\n         class=\"category-section\">\n  <div class=\"header\">\n    {{ category.name }}\n  </div>\n\n  <div class=\"content row\">\n    <div ng-repeat=\"product in category.products\"\n         class=\"col-xs-12 col-sm-6 col-md-3 card\">\n      <img src=\"\" alt=\"\">\n      <h4>{{ product.name }}</h4>\n      <div><b>{{ product.price }}</b></div>\n      <div class=\"rating\">\n        <span class=\"glyphicon glyphicon-star\"></span>\n        <span class=\"glyphicon glyphicon-star\"></span>\n        <span class=\"glyphicon glyphicon-star\"></span>\n        <span class=\"glyphicon glyphicon-star\"></span>\n      </div>\n    </div>\n  </div>\n</section>"
 
 /***/ },
 /* 20 */
@@ -37673,7 +37673,7 @@
 	
 	
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, ".category-section {\n    border: 2px solid gray;\n    border-radius: 4px;\n    margin-bottom: 10px;\n    padding: 5px;\n    background: grey;\n}\n\n.card {\n    border: 2px solid grey;\n    border-radius: 4px;\n    margin-bottom: 10px;\n    padding: 5px;\n    background: lightgray;\n}\n", ""]);
 	
 	// exports
 
@@ -37682,17 +37682,45 @@
 /* 22 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var HomeController = function HomeController() {
-	  _classCallCheck(this, HomeController);
-	};
+	var HomeController = function () {
+	  HomeController.$inject = ["CategoriesModel", "ProductsModel"];
+	  function HomeController(CategoriesModel, ProductsModel) {
+	    'ngInject';
+	
+	    _classCallCheck(this, HomeController);
+	
+	    this.CategoriesModel = CategoriesModel;
+	    this.ProductsModel = ProductsModel;
+	  }
+	
+	  _createClass(HomeController, [{
+	    key: '$onInit',
+	    value: function $onInit() {
+	      var _this = this;
+	
+	      this.CategoriesModel.getCategories().then(function (response) {
+	        _this.categories = response.data;
+	        _this.categories.map(function (category) {
+	          _this.ProductsModel.getCategoryProducts(category).then(function (res) {
+	            category.products = res.data;
+	          });
+	        });
+	      });
+	    }
+	  }]);
+	
+	  return HomeController;
+	}();
 	
 	exports.default = HomeController;
 
@@ -38295,7 +38323,7 @@
 /* 44 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"navbar navbar-default\" id=\"main-navbar\">\n  <div class=\"container-fluid\">\n    <!-- Brand and toggle get grouped for better mobile display -->\n    <div class=\"navbar-header\">\n      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\"\n              data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand\" href=\"#\">Boutique</a>\n    </div>\n\n    <form class=\"navbar-form navbar-left\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"Je suis à la recherche de ...\">\n      </div>\n      <button type=\"submit\" class=\"btn btn-default\">CHERCHER</button>\n    </form>\n\n    <!-- Collect the nav links, forms, and other content for toggling -->\n    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li><a href=\"#\">Connection</a></li>\n        <li><a href=\"#\">Inscription</a></li>\n        <li class=\"dropdown\">\n          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\"\n             aria-expanded=\"false\">Utilisateur <span class=\"caret\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li><a href=\"#\">Action</a></li>\n            <li><a href=\"#\">Another action</a></li>\n            <li><a href=\"#\">Something else here</a></li>\n            <li role=\"separator\" class=\"divider\"></li>\n            <li><a href=\"#\">Separated link</a></li>\n          </ul>\n        </li>\n      </ul>\n    </div><!-- /.navbar-collapse -->\n  </div><!-- /.container-fluid -->\n</nav>\n"
+	module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\" id=\"main-navbar\">\n  <div class=\"container-fluid\">\n    <!-- Brand and toggle get grouped for better mobile display -->\n    <div class=\"navbar-header\">\n      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\"\n              data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand\" href=\"#\">Boutique</a>\n    </div>\n\n    <form class=\"navbar-form navbar-left\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"Je suis à la recherche de ...\">\n      </div>\n      <button type=\"submit\" class=\"btn btn-default\">CHERCHER</button>\n    </form>\n\n    <!-- Collect the nav links, forms, and other content for toggling -->\n    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li><a href=\"#\">Connection</a></li>\n        <li><a href=\"#\">Inscription</a></li>\n        <li class=\"dropdown\">\n          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\"\n             aria-expanded=\"false\">Utilisateur <span class=\"caret\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li><a href=\"#\">Action</a></li>\n            <li><a href=\"#\">Another action</a></li>\n            <li><a href=\"#\">Something else here</a></li>\n            <li role=\"separator\" class=\"divider\"></li>\n            <li><a href=\"#\">Separated link</a></li>\n          </ul>\n        </li>\n      </ul>\n    </div><!-- /.navbar-collapse -->\n  </div><!-- /.container-fluid -->\n</nav>\n"
 
 /***/ },
 /* 45 */

@@ -1,8 +1,21 @@
-<ul class="list-inline">
-  <li>
-    <a ui-sref="products">Voir tous les produits</a>
-  </li>
-  <li>
-    <a ui-sref="categories">Naviguer par categorie</a>
-  </li>
-</ul>
+<section ng-repeat="category in homeCtrl.categories"
+         class="category-section">
+  <div class="header">
+    {{ category.name }}
+  </div>
+
+  <div class="content row">
+    <div ng-repeat="product in category.products"
+         class="col-xs-12 col-sm-6 col-md-3 card">
+      <img src="" alt="">
+      <h4>{{ product.name }}</h4>
+      <div><b>{{ product.price }}</b></div>
+      <div class="rating">
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+      </div>
+    </div>
+  </div>
+</section>

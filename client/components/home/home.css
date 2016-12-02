@@ -1,0 +1,15 @@
+.category-section {
+    border: 2px solid gray;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 5px;
+    background: grey;
+}
+
+.card {
+    border: 2px solid grey;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 5px;
+    background: lightgray;
+}
