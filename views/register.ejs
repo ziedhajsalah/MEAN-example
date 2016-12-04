@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css'/>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body>
+<div class="page-header">
+    <h3>S'inscrire</h3>
+</div>
+<form id="signup-form" method="POST" class="form-horizontal">
+    <input type="hidden" name="_csrf"/>
+    <div class="form-group">
+        <label for="email" class="col-sm-3 control-label">Email</label>
+        <div class="col-sm-7">
+            <input type="email" name="email" id="email" placeholder="Email"
+                   autofocus="autofocus" required="required"
+                   class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password" class="col-sm-3 control-label">
+            Mot de Passe
+        </label>
+        <div class="col-sm-7">
+            <input type="password" name="password" id="password"
+                   placeholder="Password" required="required"
+                   class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="confirmPassword" class="col-sm-3 control-label">
+            Confirmation
+        </label>
+        <div class="col-sm-7">
+            <input type="password" name="confirmPassword" id="confirmPassword"
+                   placeholder="Confirm Password" required="required"
+                   class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-7">
+            <button type="submit" class="btn btn-success"><i
+                        class="fa fa-user-plus"></i>Envoyer
+            </button>
+        </div>
+    </div>
+</form>
+
+<script src="/javascripts/jquery.js"></script>
+<script src="/javascripts/bootstrap.js"></script>
+</body>
+</html>
