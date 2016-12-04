@@ -7,12 +7,15 @@ var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
 var passport = require('passport')
+var session = require('express-session')
+var lusca = require('lusca')
+var expressValidator = require('express-validator')
+
+var passportConfig = require('./config/passport')
 
 mongoose.connect(
   process.env.MONGODB_URI || 'mongodb://localhost:27017/example'
 )
-
-// require('./config/passport')
 
 var routes = require('./routes/index')
 var users = require('./routes/users')
@@ -31,8 +34,26 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
+app.use(expressValidator())
+app.use(session({
+  resave: true,
+  saveUninitialized: true,
+  secret: process.env.SESSION_SECRET || 'secret',
+  autoReconnect: true
+}))
 app.use(express.static(path.join(__dirname, 'public')))
-// app.use(passport.initialize())
+app.use(passport.initialize())
+app.use(passport.session())
+// uncomment to enable csrf protection
+// app.use(function (req, res, next) {
+//   if (req.path === 'api url') {
+//     next()
+//   } else {
+//     lusca.csrf()(req, res, next)
+//   }
+// })
+// app.use(lusca.xframe(''))
+// app.use(lusca.xssProtection(true))
 
 app.use('/', routes)
 app.use('/users', users)
