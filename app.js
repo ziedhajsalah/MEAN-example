@@ -10,11 +10,15 @@ var passport = require('passport')
 var session = require('express-session')
 var lusca = require('lusca')
 var expressValidator = require('express-validator')
+var dotenv = require('dotenv')
 
-var passportConfig = require('./config/passport')
+/**
+ * Load environment variables from .env file, where API keys and passwords are configured.
+ */
+dotenv.load({ path: '.env.example' })
 
 mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb://localhost:27017/example'
+  process.env.MONGODB_URI || process.env.MONGOLAB_URI
 )
 
 var routes = require('./routes/index')
