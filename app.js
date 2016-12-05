@@ -11,9 +11,10 @@ var session = require('express-session')
 var lusca = require('lusca')
 var expressValidator = require('express-validator')
 var dotenv = require('dotenv')
+var flash = require('express-flash')
 
 /**
- * Load environment variables from .env file, where API keys and passwords are configured.
+ * Load environment variables from .env file
  */
 dotenv.load({ path: '.env.example' })
 
@@ -49,6 +50,7 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(flash())
 // uncomment to enable csrf protection
 // app.use(function (req, res, next) {
 //   if (req.path === 'api url') {

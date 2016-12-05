@@ -8,10 +8,22 @@
     <link rel='stylesheet' href='/stylesheets/style.css'/>
 </head>
 <body>
+<% if(messages.errors) { %>
+<div class="alert alert-danger">
+    <%= messages.errors %>
+</div>
+<% } %>
+
+<% if(messages.success) { %>
+<div class="alert alert-success">
+    <%= messages.success %>
+</div>
+<% } %>
 <div class="page-header">
     <h3>S'inscrire</h3>
 </div>
-<form id="signup-form" method="POST" class="form-horizontal">
+<form id="signup-form" method="POST" class="form-horizontal"
+    action="/auth/register">
     <input type="hidden" name="_csrf"/>
     <div class="form-group">
         <label for="email" class="col-sm-3 control-label">Email</label>
@@ -36,9 +48,10 @@
             Confirmation
         </label>
         <div class="col-sm-7">
-            <input type="password" name="confirmPassword" id="confirmPassword"
-                   placeholder="Confirm Password" required="required"
-                   class="form-control"/>
+            <input type="password" name="confirmPassword"
+                id="confirmPassword"
+                placeholder="Confirm Password" required="required"
+                class="form-control"/>
         </div>
     </div>
     <div class="form-group">

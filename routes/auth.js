@@ -1,12 +1,14 @@
 var express = require('express')
 var router = express.Router()
 
-router.get('/register', function (req, res, next) {
-  res.render('register', {'title': 'Register'})
-})
+var AuthController = require('./controllers/auth')
 
-router.get('/login', function (req, res, next) {
-  res.render('login', {'title': 'Register'})
-})
+router.get('/register', AuthController.getRegisterPage)
+
+router.get('/login', AuthController.getLoginPage)
+
+router.post('/register', AuthController.register)
+
+router.post('/login', AuthController.login)
 
 module.exports = router

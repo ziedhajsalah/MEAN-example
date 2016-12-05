@@ -1,17 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body ng-app="app" ng-strict-di ng-cloak>
-    <app>
-      <img src="/images/spinner.gif" alt="spinner" id="spinner">
-    </app>
-    <script src="/javascripts/jquery.js"></script>
-    <script src="/javascripts/bootstrap.js"></script>
-    <script src="/javascripts/bundle.js"></script>
-  </body>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body ng-app="app" ng-strict-di ng-cloak>
+<% if(messages.errors) { %>
+<div class="alert alert-danger">
+    <%= messages.errors %>
+</div>
+<% } %>
+
+<% if(messages.success) { %>
+<div class="alert alert-success">
+    <%= messages.success %>
+</div>
+<% } %>
+<app>
+    <img src="/images/spinner.gif" alt="spinner" id="spinner">
+</app>
+<script src="/javascripts/jquery.js"></script>
+<script src="/javascripts/bootstrap.js"></script>
+<script src="/javascripts/bundle.js"></script>
+</body>
 </html>
