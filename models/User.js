@@ -1,5 +1,7 @@
 var bcrypt = require('bcrypt-nodejs')
 var mongoose = require('mongoose')
+var moment = require('moment')
+var jwt = require('jsonwebtoken')
 
 var userSchema = new mongoose.Schema({
   email: {
@@ -47,6 +49,16 @@ userSchema.methods.comparePassword = function comparePassword (candidatePassword
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
     cb(err, isMatch)
   })
+}
+
+userSchema.methods.generateJWT = function () {
+  var expire = moment().add('days', 7).valueOf()
+
+  return jwt.sign({
+    _id: this._id,
+    email: this.email,
+    exp: expire
+  }, 'mot de passe') // TODO : add jwt secret to .env
 }
 
 var User = mongoose.model('User', userSchema)

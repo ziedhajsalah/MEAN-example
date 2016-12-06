@@ -21,6 +21,14 @@ angular.module('app', [
         // component: 'home'
         template: '<home></home>'
       })
+      .state('login', {
+        url: '/login',
+        template: '<login></login>'
+      })
+      .state('register', {
+        url: '/register',
+        template: '<register></register>'
+      })
       .state('products', {
         url: '/products',
         // component: 'products'

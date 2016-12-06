@@ -63,12 +63,69 @@ var logout = function (req, res, next) {
   res.redirect('/')
 }
 
+/* API */
+
+var isAuth = function (req, res, next) {
+  res.json({
+    status: req.isAuthenticated()
+  })
+}
+
+var apiRegister = function (req, res, next) {
+  var user = {
+    email: req.body.email,
+    password: req.body.password
+  }
+
+  User.findOne({ email: user.email }, function (err, existingUser) {
+    if (err) {
+      return next(err)
+    }
+    if (existingUser) {
+      res.json({
+        message: 'this email is already taken'
+      })
+      return
+    }
+
+    user = new User(user)
+    user.save(function (err) {
+      if (err) {
+        next(err)
+      }
+      res.status(200).json({
+        'token': user.generateJWT(),
+        'message': 'User registered: ' + req.body.email
+      })
+    })
+  })
+}
+
+var apiLogin = function (req, res, next) {
+  passport.authenticate('local', function (err, user, info) {
+    if (err) {
+      res.status(404).json(err)
+    }
+
+    if (!user) {
+      res.status(401).json(info)
+    }
+
+    res.status(200).json({
+      token: user.generateJWT()
+    })
+  })(req, res, next)
+}
+
 var AuthController = {
   getLoginPage: getLoginPage,
   getRegisterPage: getRegisterPage,
   register: register,
   login: login,
-  logout: logout
+  logout: logout,
+  isAuth: isAuth,
+  apiRegister: apiRegister,
+  apiLogin: apiLogin
 }
 
 module.exports = AuthController

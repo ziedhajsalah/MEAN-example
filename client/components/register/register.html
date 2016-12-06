@@ -1,0 +1,14 @@
+<form ng-submit="registerCtrl.register(registerCtrl.credentials)">
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" id="email"
+           placeholder="votre email" ng-model="registerCtrl.credentials.email">
+  </div>
+  <div class="form-group">
+    <label for="password">Mot de passe</label>
+    <input type="password" class="form-control" id="password"
+           placeholder="votre mot de passe"
+           ng-model="registerCtrl.credentials.password">
+  </div>
+  <button type="submit" class="btn btn-default">Enregistrer</button>
+</form>

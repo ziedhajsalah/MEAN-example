@@ -1,5 +1,11 @@
 var express = require('express')
 var bodyParser = require('body-parser')
+var jwt = require('express-jwt')
+
+var auth = jwt({
+  secret: 'mot de passe', // TODO
+  userProperty: 'payload'
+})
 
 var ProductsController = require('./controllers/product')
 
@@ -8,11 +14,11 @@ productRouter.use(bodyParser.json())
 
 productRouter.route('/')
   .get(ProductsController.getProducts)
-  .post(ProductsController.addProduct)
+  .post(auth, ProductsController.addProduct)
 
 productRouter.route('/:productId')
   .get(ProductsController.getProduct)
-  .put(ProductsController.updateProduct)
-  .delete(ProductsController.deleteProduct)
+  .put(auth, ProductsController.updateProduct)
+  .delete(auth, ProductsController.deleteProduct)
 
 module.exports = productRouter

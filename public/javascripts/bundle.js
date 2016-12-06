@@ -64,7 +64,7 @@
 	
 	var _component2 = _interopRequireDefault(_component);
 	
-	var _models = __webpack_require__(53);
+	var _models = __webpack_require__(63);
 	
 	var _models2 = _interopRequireDefault(_models);
 	
@@ -77,6 +77,12 @@
 	    url: '/',
 	    // component: 'home'
 	    template: '<home></home>'
+	  }).state('login', {
+	    url: '/login',
+	    template: '<login></login>'
+	  }).state('register', {
+	    url: '/register',
+	    template: '<register></register>'
 	  }).state('products', {
 	    url: '/products',
 	    // component: 'products'
@@ -37596,9 +37602,17 @@
 	
 	var _sidebar2 = _interopRequireDefault(_sidebar);
 	
+	var _login = __webpack_require__(53);
+	
+	var _login2 = _interopRequireDefault(_login);
+	
+	var _register = __webpack_require__(58);
+	
+	var _register2 = _interopRequireDefault(_register);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var ComponentsModule = _angular2.default.module('components', []).component('home', _home2.default).component('products', _product2.default).component('showProduct', _showProduct2.default).component('categories', _categories2.default).component('showCategory', _showCategory2.default).component('navBar', _navbar2.default).component('sideBar', _sidebar2.default);
+	var ComponentsModule = _angular2.default.module('components', []).component('home', _home2.default).component('products', _product2.default).component('showProduct', _showProduct2.default).component('categories', _categories2.default).component('showCategory', _showCategory2.default).component('navBar', _navbar2.default).component('sideBar', _sidebar2.default).component('login', _login2.default).component('register', _register2.default);
 	
 	exports.default = ComponentsModule;
 
@@ -38323,7 +38337,7 @@
 /* 44 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\" id=\"main-navbar\">\n  <div class=\"container-fluid\">\n    <!-- Brand and toggle get grouped for better mobile display -->\n    <div class=\"navbar-header\">\n      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\"\n              data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand\" href=\"#\">Boutique</a>\n    </div>\n\n    <form class=\"navbar-form navbar-left\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"Je suis à la recherche de ...\">\n      </div>\n      <button type=\"submit\" class=\"btn btn-default\">CHERCHER</button>\n    </form>\n\n    <!-- Collect the nav links, forms, and other content for toggling -->\n    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li><a href=\"/auth/login\">Connection</a></li>\n        <li><a href=\"/auth/register\">Inscription</a></li>\n        <li class=\"dropdown\">\n          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\"\n             aria-expanded=\"false\">Utilisateur <span class=\"caret\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li><a href=\"#\">Action</a></li>\n            <li><a href=\"#\">Another action</a></li>\n            <li><a href=\"#\">Something else here</a></li>\n            <li role=\"separator\" class=\"divider\"></li>\n            <li><a href=\"#\">Separated link</a></li>\n          </ul>\n        </li>\n      </ul>\n    </div><!-- /.navbar-collapse -->\n  </div><!-- /.container-fluid -->\n</nav>\n"
+	module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\" id=\"main-navbar\">\n  <div class=\"container-fluid\">\n    <!-- Brand and toggle get grouped for better mobile display -->\n    <div class=\"navbar-header\">\n      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\"\n              data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand\" href=\"#\">Boutique</a>\n    </div>\n\n    <form class=\"navbar-form navbar-left\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"Je suis à la recherche de ...\">\n      </div>\n      <button type=\"submit\" class=\"btn btn-default\">CHERCHER</button>\n    </form>\n\n    <!-- Collect the nav links, forms, and other content for toggling -->\n    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li><a ui-sref=\"login\">Connection</a></li>\n        <li><a ui-sref=\"register\">Inscription</a></li>\n        <li class=\"dropdown\">\n          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\"\n             aria-expanded=\"false\">Utilisateur <span class=\"caret\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li><a href=\"#\">Action</a></li>\n            <li><a href=\"#\">Another action</a></li>\n            <li><a href=\"#\">Something else here</a></li>\n            <li role=\"separator\" class=\"divider\"></li>\n            <li><a href=\"#\">Separated link</a></li>\n          </ul>\n        </li>\n      </ul>\n    </div><!-- /.navbar-collapse -->\n  </div><!-- /.container-fluid -->\n</nav>\n"
 
 /***/ },
 /* 45 */
@@ -38520,26 +38534,276 @@
 	  value: true
 	});
 	
+	var _login = __webpack_require__(54);
+	
+	var _login2 = _interopRequireDefault(_login);
+	
+	var _login3 = __webpack_require__(55);
+	
+	var _login4 = _interopRequireDefault(_login3);
+	
+	__webpack_require__(56);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var loginController = {
+	  template: _login2.default,
+	  controller: _login4.default,
+	  controllerAs: 'loginCtrl'
+	};
+	
+	exports.default = loginController;
+
+/***/ },
+/* 54 */
+/***/ function(module, exports) {
+
+	module.exports = "<form ng-submit=\"loginCtrl.login(loginCtrl.credentials)\">\n  <div class=\"form-group\">\n    <label for=\"email\">Email address</label>\n    <input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"Enter email\" ng-model=\"loginCtrl.credentials.email\">\n  </div>\n  <div class=\"form-group\">\n    <label for=\"password\">Password</label>\n    <input type=\"password\" class=\"form-control\" id=\"password\" placeholder=\"Password\" ng-model=\"loginCtrl.credentials.password\">\n  </div>\n  <button type=\"submit\" class=\"btn btn-default\">Sign in!</button>\n</form>"
+
+/***/ },
+/* 55 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var LoginController = function () {
+	  LoginController.$inject = ["authService", "$state"];
+	  function LoginController(authService, $state) {
+	    'ngInject';
+	
+	    _classCallCheck(this, LoginController);
+	
+	    this.authService = authService;
+	    this.$state = $state;
+	    this.credentials = {
+	      email: '',
+	      password: ''
+	    };
+	  }
+	
+	  _createClass(LoginController, [{
+	    key: 'login',
+	    value: function login() {
+	      var _this = this;
+	
+	      this.authService.login(this.credentials).error(function (err) {
+	        console.log(err);
+	      }).then(function () {
+	        _this.$state.go('home');
+	      });
+	    }
+	  }]);
+	
+	  return LoginController;
+	}();
+	
+	exports.default = LoginController;
+
+/***/ },
+/* 56 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(57);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./login.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./login.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 57 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 58 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _register = __webpack_require__(59);
+	
+	var _register2 = _interopRequireDefault(_register);
+	
+	var _register3 = __webpack_require__(60);
+	
+	var _register4 = _interopRequireDefault(_register3);
+	
+	__webpack_require__(61);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var registerComponent = {
+	  template: _register2.default,
+	  controller: _register4.default,
+	  controllerAs: 'registerCtrl'
+	};
+	
+	exports.default = registerComponent;
+
+/***/ },
+/* 59 */
+/***/ function(module, exports) {
+
+	module.exports = "<form ng-submit=\"registerCtrl.register(registerCtrl.credentials)\">\n  <div class=\"form-group\">\n    <label for=\"email\">Email</label>\n    <input type=\"email\" class=\"form-control\" id=\"email\"\n           placeholder=\"votre email\" ng-model=\"registerCtrl.credentials.email\">\n  </div>\n  <div class=\"form-group\">\n    <label for=\"password\">Mot de passe</label>\n    <input type=\"password\" class=\"form-control\" id=\"password\"\n           placeholder=\"votre mot de passe\"\n           ng-model=\"registerCtrl.credentials.password\">\n  </div>\n  <button type=\"submit\" class=\"btn btn-default\">Enregistrer</button>\n</form>"
+
+/***/ },
+/* 60 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var RegisterController = function () {
+	  RegisterController.$inject = ["authService", "$state"];
+	  function RegisterController(authService, $state) {
+	    'ngInject';
+	
+	    _classCallCheck(this, RegisterController);
+	
+	    this.authService = authService;
+	    this.$state = $state;
+	    this.credentials = {
+	      email: '',
+	      password: ''
+	    };
+	  }
+	
+	  _createClass(RegisterController, [{
+	    key: 'register',
+	    value: function register() {
+	      var _this = this;
+	
+	      this.authService.register(this.credentials).error(function (err) {
+	        console.log(err);
+	      }).then(function () {
+	        _this.$state.go('home');
+	      });
+	    }
+	  }]);
+	
+	  return RegisterController;
+	}();
+	
+	exports.default = RegisterController;
+
+/***/ },
+/* 61 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(62);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./register.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./register.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 62 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 63 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _angular = __webpack_require__(10);
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
-	var _products = __webpack_require__(54);
+	var _products = __webpack_require__(64);
 	
 	var _products2 = _interopRequireDefault(_products);
 	
-	var _categories = __webpack_require__(55);
+	var _categories = __webpack_require__(65);
 	
 	var _categories2 = _interopRequireDefault(_categories);
 	
+	var _auth = __webpack_require__(66);
+	
+	var _auth2 = _interopRequireDefault(_auth);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var ModelsModule = _angular2.default.module('models', []).service('ProductsModel', _products2.default).service('CategoriesModel', _categories2.default);
+	var ModelsModule = _angular2.default.module('models', []).service('ProductsModel', _products2.default).service('CategoriesModel', _categories2.default).service('authService', _auth2.default);
 	
 	exports.default = ModelsModule;
 
 /***/ },
-/* 54 */
+/* 64 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -38659,7 +38923,7 @@
 	exports.default = ProductsModel;
 
 /***/ },
-/* 55 */
+/* 65 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -38760,6 +39024,100 @@
 	}();
 	
 	exports.default = CategoriesModel;
+
+/***/ },
+/* 66 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var AuthService = function () {
+	  AuthService.$inject = ["$http", "$q", "$window"];
+	  function AuthService($http, $q, $window) {
+	    'ngInject';
+	
+	    _classCallCheck(this, AuthService);
+	
+	    this.$http = $http;
+	    this.$q = $q;
+	    this.$window = $window;
+	  }
+	
+	  _createClass(AuthService, [{
+	    key: 'saveToken',
+	    value: function saveToken(token) {
+	      this.$window.localStorage['auth-token'] = token;
+	    }
+	  }, {
+	    key: 'getToken',
+	    value: function getToken() {
+	      return this.$window.localStorage['auth-token'];
+	    }
+	  }, {
+	    key: 'logout',
+	    value: function logout() {
+	      this.$window.localStorage.removeItem('auth-token');
+	    }
+	  }, {
+	    key: 'isAuthenticated',
+	    value: function isAuthenticated() {
+	      var token = this.getToken();
+	
+	      if (token) {
+	        var payload = token.split('.')[1]; // extract the payload from the token
+	        payload = this.$window.atob(payload); // decode the payload
+	        payload = JSON.parse(payload); // convert string decoded to object
+	
+	        return payload.exp > Date.now();
+	      }
+	
+	      return false;
+	    }
+	  }, {
+	    key: 'currentUser',
+	    value: function currentUser() {
+	      if (this.isAuthenticated()) {
+	        var payload = this.getToken().split('.')[1];
+	        payload = this.$window.atob(payload);
+	        payload = JSON.parse(payload);
+	
+	        return {
+	          email: payload.email
+	        };
+	      }
+	    }
+	  }, {
+	    key: 'login',
+	    value: function login(user) {
+	      var _this = this;
+	
+	      return this.$http.post('/auth/api/login', user).success(function (data) {
+	        _this.saveToken(data.token);
+	      });
+	    }
+	  }, {
+	    key: 'register',
+	    value: function register(user) {
+	      var _this2 = this;
+	
+	      return this.$http.post('/auth/api/register', user).success(function (data) {
+	        _this2.saveToken(data.token);
+	      });
+	    }
+	  }]);
+	
+	  return AuthService;
+	}();
+	
+	exports.default = AuthService;
 
 /***/ }
 /******/ ]);
