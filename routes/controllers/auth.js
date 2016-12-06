@@ -1,5 +1,6 @@
 var User = require('../../models/User')
 var passport = require('passport')
+require('../../config/passport')
 
 var getLoginPage = function (req, res, next) {
   res.render('login', { 'title': 'Login' })
@@ -36,18 +37,38 @@ var register = function (req, res, next) {
 }
 
 var login = function (req, res, next) {
-  return passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true
-  })
+  passport.authenticate('local', function (err, user, info) {
+    if (err) {
+      return next(err)
+    }
+
+    if (!user) {
+      console.log(info)
+      req.flash('errors', info.message)
+      return res.redirect('/auth/login')
+    }
+
+    req.logIn(user, function (err) {
+      if (err) {
+        return next(err)
+      }
+      req.flash('success', 'Welcome again')
+      res.redirect('/')
+    })
+  })(req, res, next)
+}
+
+var logout = function (req, res, next) {
+  req.logout()
+  res.redirect('/')
 }
 
 var AuthController = {
   getLoginPage: getLoginPage,
   getRegisterPage: getRegisterPage,
   register: register,
-  login: login
+  login: login,
+  logout: logout
 }
 
 module.exports = AuthController

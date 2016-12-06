@@ -8,6 +8,18 @@
     <link rel='stylesheet' href='/stylesheets/style.css'/>
 </head>
 <body>
+<% if(messages.errors) { %>
+<div class="alert alert-danger">
+    <%= messages.errors %>
+</div>
+<% } %>
+
+<% if(messages.success) { %>
+<div class="alert alert-success">
+    <%= messages.success %>
+</div>
+<% } %>
+
 <div class="page-header">
     <h3>Se Connecter</h3>
 </div>
