@@ -1,17 +1,17 @@
 /* eslint-env node */
-var express = require('express')
-var path = require('path')
-var favicon = require('serve-favicon')
-var logger = require('morgan')
-var cookieParser = require('cookie-parser')
-var bodyParser = require('body-parser')
-var mongoose = require('mongoose')
-var passport = require('passport')
-var session = require('express-session')
-var lusca = require('lusca')
-var expressValidator = require('express-validator')
-var dotenv = require('dotenv')
-var flash = require('express-flash')
+const express = require('express')
+const path = require('path')
+// const favicon = require('serve-favicon')
+const logger = require('morgan')
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+const passport = require('passport')
+const session = require('express-session')
+// const lusca = require('lusca')
+const expressValidator = require('express-validator')
+const dotenv = require('dotenv')
+const flash = require('express-flash')
 
 /**
  * Load environment variables from .env file
@@ -22,13 +22,13 @@ mongoose.connect(
   process.env.MONGODB_URI || process.env.MONGOLAB_URI
 )
 
-var routes = require('./routes/index')
-var auth = require('./routes/auth')
-var users = require('./routes/users')
-var products = require('./routes/products')
-var categories = require('./routes/categories')
+const routes = require('./routes/index')
+const auth = require('./routes/auth')
+const users = require('./routes/users')
+const products = require('./routes/products')
+const categories = require('./routes/categories')
 
-var app = express()
+const app = express()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -70,7 +70,7 @@ app.use('/auth', auth)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  var err = new Error('Not Found')
+  const err = new Error('Not Found')
   err.status = 404
   next(err)
 })

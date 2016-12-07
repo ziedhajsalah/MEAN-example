@@ -38337,7 +38337,7 @@
 /* 44 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\" id=\"main-navbar\">\n  <div class=\"container-fluid\">\n    <!-- Brand and toggle get grouped for better mobile display -->\n    <div class=\"navbar-header\">\n      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\"\n              data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand\" href=\"#\">Boutique</a>\n    </div>\n\n    <form class=\"navbar-form navbar-left\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"Je suis à la recherche de ...\">\n      </div>\n      <button type=\"submit\" class=\"btn btn-default\">CHERCHER</button>\n    </form>\n\n    <!-- Collect the nav links, forms, and other content for toggling -->\n    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li ng-hide=\"navBarCtrl.isAuthenticated\">\n          <a ui-sref=\"login\">Connection</a>\n        </li>\n        <li ng-hide=\"navBarCtrl.isAuthenticated\">\n          <a ui-sref=\"register\">Inscription</a>\n        </li>\n        <li class=\"dropdown\" ng-show=\"navBarCtrl.isAuthenticated\">\n          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\"\n             aria-expanded=\"false\">Utilisateur <span class=\"caret\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li><a href=\"#\">Action</a></li>\n            <li><a href=\"#\">Another action</a></li>\n            <li><a href=\"#\">Something else here</a></li>\n            <li role=\"separator\" class=\"divider\"></li>\n            <li><a ng-click=\"navBarCtrl.logout()\">Sortir</a></li>\n          </ul>\n        </li>\n      </ul>\n    </div><!-- /.navbar-collapse -->\n  </div><!-- /.container-fluid -->\n</nav>\n"
+	module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\" id=\"main-navbar\">\n  <div class=\"container-fluid\">\n    <!-- Brand and toggle get grouped for better mobile display -->\n    <div class=\"navbar-header\">\n      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\"\n              data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand\" href=\"#\">Boutique</a>\n    </div>\n\n    <form class=\"navbar-form navbar-left\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"Je suis à la recherche de ...\">\n      </div>\n      <button type=\"submit\" class=\"btn btn-default\">CHERCHER</button>\n    </form>\n\n    <!-- Collect the nav links, forms, and other content for toggling -->\n    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li ng-hide=\"navBarCtrl.isAuthenticated\">\n          <a ui-sref=\"login\">Connection</a>\n        </li>\n        <li ng-hide=\"navBarCtrl.isAuthenticated\">\n          <a ui-sref=\"register\">Inscription</a>\n        </li>\n        <li class=\"dropdown\" ng-show=\"navBarCtrl.isAuthenticated\">\n          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\"\n             aria-expanded=\"false\">\n            {{ navBarCtrl.currentUser.email }}\n            <span class=\"caret\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li><a href=\"#\">Action</a></li>\n            <li><a href=\"#\">Another action</a></li>\n            <li><a href=\"#\">Something else here</a></li>\n            <li role=\"separator\" class=\"divider\"></li>\n            <li><a ng-click=\"navBarCtrl.logout()\">Sortir</a></li>\n          </ul>\n        </li>\n      </ul>\n    </div><!-- /.navbar-collapse -->\n  </div><!-- /.container-fluid -->\n</nav>\n"
 
 /***/ },
 /* 45 */
@@ -38354,14 +38354,15 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var NavBarController = function () {
-	  NavBarController.$inject = ["authService", "$scope"];
-	  function NavBarController(authService, $scope) {
+	  NavBarController.$inject = ["authService", "$scope", "$rootScope"];
+	  function NavBarController(authService, $scope, $rootScope) {
 	    'ngInject';
 	
 	    _classCallCheck(this, NavBarController);
 	
 	    this.authService = authService;
 	    this.$scope = $scope;
+	    this.$rootScope = $rootScope;
 	    this.isAuthenticated = false;
 	  }
 	
@@ -38371,6 +38372,8 @@
 	      var _this = this;
 	
 	      this.isAuthenticated = this.authService.isAuthenticated();
+	      this.currentUser = this.authService.currentUser();
+	
 	      this.$scope.$on('onLogout', function () {
 	        _this.isAuthenticated = false;
 	      });
@@ -39116,7 +39119,7 @@
 	        payload = this.$window.atob(payload); // decode the payload
 	        payload = JSON.parse(payload); // convert string decoded to object
 	
-	        return payload.exp > Date.now();
+	        return payload.exp > Date.now() / 1000;
 	      }
 	
 	      return false;

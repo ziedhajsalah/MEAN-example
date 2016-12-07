@@ -1,17 +1,24 @@
-var User = require('../../models/User')
-var passport = require('passport')
+const User = require('../../models/User')
+const passport = require('passport')
+const validator = require('validator')
 require('../../config/passport')
 
-var getLoginPage = function (req, res, next) {
+const getLoginPage = function (req, res, next) {
   res.render('login', { 'title': 'Login' })
 }
 
-var getRegisterPage = function (req, res, next) {
+const getRegisterPage = function (req, res, next) {
   res.render('register', { 'title': 'Register' })
 }
 
-var register = function (req, res, next) {
-  var user = {
+const register = function (req, res, next) {
+  if (!validator.isEmail(req.body.email)) {
+    // req.assert('email', 'email not valid').isEmail()
+    req.flash('errors', 'L\'email introduit est invalide')
+    return res.redirect('/auth/register')
+  }
+
+  let user = {
     email: req.body.email,
     password: req.body.password
   }
@@ -36,7 +43,7 @@ var register = function (req, res, next) {
   })
 }
 
-var login = function (req, res, next) {
+const login = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     if (err) {
       return next(err)
@@ -58,21 +65,21 @@ var login = function (req, res, next) {
   })(req, res, next)
 }
 
-var logout = function (req, res, next) {
+const logout = function (req, res, next) {
   req.logout()
   res.redirect('/')
 }
 
 /* API */
 
-var isAuth = function (req, res, next) {
+const isAuth = function (req, res, next) {
   res.json({
     status: req.isAuthenticated()
   })
 }
 
-var apiRegister = function (req, res, next) {
-  var user = {
+const apiRegister = function (req, res, next) {
+  let user = {
     email: req.body.email,
     password: req.body.password
   }
@@ -101,7 +108,7 @@ var apiRegister = function (req, res, next) {
   })
 }
 
-var apiLogin = function (req, res, next) {
+const apiLogin = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     if (err) {
       res.status(404).json(err)
@@ -117,7 +124,33 @@ var apiLogin = function (req, res, next) {
   })(req, res, next)
 }
 
-var AuthController = {
+const facebookLogin = function (req, res, next) {
+  passport.authenticate('facebook', {scope: ['email']})(req, res, next)
+}
+
+const facebookLoginCallback = function (req, res, next) {
+  passport.authenticate('facebook', function (err, user, info) {
+    if (err) {
+      return next(err)
+    }
+
+    if (!user) {
+      console.log(info)
+      req.flash('errors', info.message)
+      return res.redirect('/auth/login')
+    }
+
+    req.logIn(user, function (err) {
+      if (err) {
+        return next(err)
+      }
+      req.flash('success', 'Welcome again')
+      res.redirect('/')
+    })
+  })(req, res, next)
+}
+
+const AuthController = {
   getLoginPage: getLoginPage,
   getRegisterPage: getRegisterPage,
   register: register,
@@ -125,7 +158,9 @@ var AuthController = {
   logout: logout,
   isAuth: isAuth,
   apiRegister: apiRegister,
-  apiLogin: apiLogin
+  apiLogin: apiLogin,
+  facebookLogin: facebookLogin,
+  facebookLoginCallback: facebookLoginCallback
 }
 
 module.exports = AuthController

@@ -29,7 +29,7 @@ class AuthService {
       payload = this.$window.atob(payload) // decode the payload
       payload = JSON.parse(payload) // convert string decoded to object
 
-      return payload.exp > Date.now()
+      return payload.exp > Date.now() / 1000
     }
 
     return false

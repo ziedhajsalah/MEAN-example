@@ -1,7 +1,7 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express')
+const router = express.Router()
 
-var AuthController = require('./controllers/auth')
+const AuthController = require('./controllers/auth')
 
 router.get('/register', AuthController.getRegisterPage)
 
@@ -12,6 +12,10 @@ router.post('/register', AuthController.register)
 router.post('/login', AuthController.login)
 
 router.get('/logout', AuthController.logout)
+
+router.get('/facebook', AuthController.facebookLogin)
+
+router.get('/facebook/callback', AuthController.facebookLoginCallback)
 
 /* API routes */
 
