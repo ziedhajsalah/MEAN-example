@@ -1,9 +1,10 @@
 class ProductsModel {
-  constructor ($http, $q) {
+  constructor ($http, $q, authService) {
     'ngInject'
 
     this.$http = $http
     this.$q = $q
+    this.authService = authService
     this.products = []
 
     this.getProducts = this.getProducts.bind(this)
@@ -24,8 +25,13 @@ class ProductsModel {
   }
 
   addProduct (product) {
+    const token = this.authService.getToken()
     const deferred = this.$q.defer()
-    this.$http.post('/products', product)
+    this.$http.post('/products', product, {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
       .then(data => {
         deferred.resolve(data)
       }, error => {
@@ -52,8 +58,13 @@ class ProductsModel {
   }
 
   updateProduct (product) {
+    const token = this.authService.getToken()
     const deferred = this.$q.defer()
-    this.$http.put('/products/' + product._id, product)
+    this.$http.put('/products/' + product._id, product, {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
       .then(data => {
         deferred.resolve(data)
       }, error => {
@@ -66,8 +77,13 @@ class ProductsModel {
   }
 
   deleteProduct (product) {
+    const token = this.authService.getToken()
     const deferred = this.$q.defer()
-    this.$http.delete('/products/' + product._id, product)
+    this.$http.delete('/products/' + product._id, {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
       .then(data => {
         deferred.resolve(data)
       }, error => {

@@ -52,13 +52,13 @@ userSchema.methods.comparePassword = function comparePassword (candidatePassword
 }
 
 userSchema.methods.generateJWT = function () {
-  var expire = moment().add('days', 7).valueOf()
+  var expire = moment().add('days', 7).valueOf() / 1000
 
   return jwt.sign({
     _id: this._id,
     email: this.email,
     exp: expire
-  }, 'mot de passe') // TODO : add jwt secret to .env
+  }, process.env.JWT_SECRET) // TODO : add jwt secret to .env
 }
 
 var User = mongoose.model('User', userSchema)

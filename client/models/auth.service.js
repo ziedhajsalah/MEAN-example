@@ -1,10 +1,11 @@
 class AuthService {
-  constructor ($http, $q, $window) {
+  constructor ($http, $q, $window, $rootScope) {
     'ngInject'
 
     this.$http = $http
     this.$q = $q
     this.$window = $window
+    this.$rootScope = $rootScope
   }
 
   saveToken (token) {
@@ -17,6 +18,7 @@ class AuthService {
 
   logout () {
     this.$window.localStorage.removeItem('auth-token')
+    this.$rootScope.$broadcast('onLogout')
   }
 
   isAuthenticated () {
@@ -49,6 +51,7 @@ class AuthService {
     return this.$http.post('/auth/api/login', user)
       .success(data => {
         this.saveToken(data.token)
+        this.$rootScope.$broadcast('onLogin')
       })
   }
 

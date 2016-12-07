@@ -38337,13 +38337,13 @@
 /* 44 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\" id=\"main-navbar\">\n  <div class=\"container-fluid\">\n    <!-- Brand and toggle get grouped for better mobile display -->\n    <div class=\"navbar-header\">\n      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\"\n              data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand\" href=\"#\">Boutique</a>\n    </div>\n\n    <form class=\"navbar-form navbar-left\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"Je suis à la recherche de ...\">\n      </div>\n      <button type=\"submit\" class=\"btn btn-default\">CHERCHER</button>\n    </form>\n\n    <!-- Collect the nav links, forms, and other content for toggling -->\n    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li><a ui-sref=\"login\">Connection</a></li>\n        <li><a ui-sref=\"register\">Inscription</a></li>\n        <li class=\"dropdown\">\n          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\"\n             aria-expanded=\"false\">Utilisateur <span class=\"caret\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li><a href=\"#\">Action</a></li>\n            <li><a href=\"#\">Another action</a></li>\n            <li><a href=\"#\">Something else here</a></li>\n            <li role=\"separator\" class=\"divider\"></li>\n            <li><a href=\"#\">Separated link</a></li>\n          </ul>\n        </li>\n      </ul>\n    </div><!-- /.navbar-collapse -->\n  </div><!-- /.container-fluid -->\n</nav>\n"
+	module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\" id=\"main-navbar\">\n  <div class=\"container-fluid\">\n    <!-- Brand and toggle get grouped for better mobile display -->\n    <div class=\"navbar-header\">\n      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\"\n              data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n        <span class=\"sr-only\">Toggle navigation</span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n        <span class=\"icon-bar\"></span>\n      </button>\n      <a class=\"navbar-brand\" href=\"#\">Boutique</a>\n    </div>\n\n    <form class=\"navbar-form navbar-left\">\n      <div class=\"form-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"Je suis à la recherche de ...\">\n      </div>\n      <button type=\"submit\" class=\"btn btn-default\">CHERCHER</button>\n    </form>\n\n    <!-- Collect the nav links, forms, and other content for toggling -->\n    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n      <ul class=\"nav navbar-nav navbar-right\">\n        <li ng-hide=\"navBarCtrl.isAuthenticated\">\n          <a ui-sref=\"login\">Connection</a>\n        </li>\n        <li ng-hide=\"navBarCtrl.isAuthenticated\">\n          <a ui-sref=\"register\">Inscription</a>\n        </li>\n        <li class=\"dropdown\" ng-show=\"navBarCtrl.isAuthenticated\">\n          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\"\n             aria-expanded=\"false\">Utilisateur <span class=\"caret\"></span></a>\n          <ul class=\"dropdown-menu\">\n            <li><a href=\"#\">Action</a></li>\n            <li><a href=\"#\">Another action</a></li>\n            <li><a href=\"#\">Something else here</a></li>\n            <li role=\"separator\" class=\"divider\"></li>\n            <li><a ng-click=\"navBarCtrl.logout()\">Sortir</a></li>\n          </ul>\n        </li>\n      </ul>\n    </div><!-- /.navbar-collapse -->\n  </div><!-- /.container-fluid -->\n</nav>\n"
 
 /***/ },
 /* 45 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -38354,13 +38354,35 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var NavBarController = function () {
-	  function NavBarController() {
+	  NavBarController.$inject = ["authService", "$scope"];
+	  function NavBarController(authService, $scope) {
+	    'ngInject';
+	
 	    _classCallCheck(this, NavBarController);
+	
+	    this.authService = authService;
+	    this.$scope = $scope;
+	    this.isAuthenticated = false;
 	  }
 	
 	  _createClass(NavBarController, [{
-	    key: "constractor",
-	    value: function constractor() {}
+	    key: '$onInit',
+	    value: function $onInit() {
+	      var _this = this;
+	
+	      this.isAuthenticated = this.authService.isAuthenticated();
+	      this.$scope.$on('onLogout', function () {
+	        _this.isAuthenticated = false;
+	      });
+	      this.$scope.$on('onLogin', function () {
+	        _this.isAuthenticated = true;
+	      });
+	    }
+	  }, {
+	    key: 'logout',
+	    value: function logout() {
+	      this.authService.logout();
+	    }
 	  }]);
 	
 	  return NavBarController;
@@ -38817,14 +38839,15 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var ProductsModel = function () {
-	  ProductsModel.$inject = ["$http", "$q"];
-	  function ProductsModel($http, $q) {
+	  ProductsModel.$inject = ["$http", "$q", "authService"];
+	  function ProductsModel($http, $q, authService) {
 	    'ngInject';
 	
 	    _classCallCheck(this, ProductsModel);
 	
 	    this.$http = $http;
 	    this.$q = $q;
+	    this.authService = authService;
 	    this.products = [];
 	
 	    this.getProducts = this.getProducts.bind(this);
@@ -38847,8 +38870,13 @@
 	  }, {
 	    key: 'addProduct',
 	    value: function addProduct(product) {
+	      var token = this.authService.getToken();
 	      var deferred = this.$q.defer();
-	      this.$http.post('/products', product).then(function (data) {
+	      this.$http.post('/products', product, {
+	        headers: {
+	          Authorization: 'Bearer ' + token
+	        }
+	      }).then(function (data) {
 	        deferred.resolve(data);
 	      }, function (error) {
 	        deferred.reject(error);
@@ -38875,8 +38903,13 @@
 	  }, {
 	    key: 'updateProduct',
 	    value: function updateProduct(product) {
+	      var token = this.authService.getToken();
 	      var deferred = this.$q.defer();
-	      this.$http.put('/products/' + product._id, product).then(function (data) {
+	      this.$http.put('/products/' + product._id, product, {
+	        headers: {
+	          Authorization: 'Bearer ' + token
+	        }
+	      }).then(function (data) {
 	        deferred.resolve(data);
 	      }, function (error) {
 	        deferred.reject(error);
@@ -38889,8 +38922,13 @@
 	  }, {
 	    key: 'deleteProduct',
 	    value: function deleteProduct(product) {
+	      var token = this.authService.getToken();
 	      var deferred = this.$q.defer();
-	      this.$http.delete('/products/' + product._id, product).then(function (data) {
+	      this.$http.delete('/products/' + product._id, {
+	        headers: {
+	          Authorization: 'Bearer ' + token
+	        }
+	      }).then(function (data) {
 	        deferred.resolve(data);
 	      }, function (error) {
 	        deferred.reject(error);
@@ -39040,8 +39078,8 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var AuthService = function () {
-	  AuthService.$inject = ["$http", "$q", "$window"];
-	  function AuthService($http, $q, $window) {
+	  AuthService.$inject = ["$http", "$q", "$window", "$rootScope"];
+	  function AuthService($http, $q, $window, $rootScope) {
 	    'ngInject';
 	
 	    _classCallCheck(this, AuthService);
@@ -39049,6 +39087,7 @@
 	    this.$http = $http;
 	    this.$q = $q;
 	    this.$window = $window;
+	    this.$rootScope = $rootScope;
 	  }
 	
 	  _createClass(AuthService, [{
@@ -39065,6 +39104,7 @@
 	    key: 'logout',
 	    value: function logout() {
 	      this.$window.localStorage.removeItem('auth-token');
+	      this.$rootScope.$broadcast('onLogout');
 	    }
 	  }, {
 	    key: 'isAuthenticated',
@@ -39101,6 +39141,7 @@
 	
 	      return this.$http.post('/auth/api/login', user).success(function (data) {
 	        _this.saveToken(data.token);
+	        _this.$rootScope.$broadcast('onLogin');
 	      });
 	    }
 	  }, {

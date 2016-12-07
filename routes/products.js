@@ -3,7 +3,7 @@ var bodyParser = require('body-parser')
 var jwt = require('express-jwt')
 
 var auth = jwt({
-  secret: 'mot de passe', // TODO
+  secret: process.env.JWT_SECRET, // TODO
   userProperty: 'payload'
 })
 
