@@ -16,7 +16,7 @@ var flash = require('express-flash')
 /**
  * Load environment variables from .env file
  */
-dotenv.load({ path: '.env.example' })
+dotenv.load({ path: '.env' })
 
 mongoose.connect(
   process.env.MONGODB_URI || process.env.MONGOLAB_URI
