@@ -18,6 +18,8 @@ const flash = require('express-flash')
  */
 dotenv.load({ path: '.env' })
 
+
+mongoose.Promise = Promise
 mongoose.connect(
   process.env.MONGODB_URI || process.env.MONGOLAB_URI
 )

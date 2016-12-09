@@ -100,7 +100,7 @@ const apiRegister = function (req, res, next) {
       if (err) {
         next(err)
       }
-      res.status(200).json({
+      return res.status(200).json({
         'token': user.generateJWT(),
         'message': 'User registered: ' + req.body.email
       })
