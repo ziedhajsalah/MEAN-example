@@ -18,12 +18,15 @@ const flash = require('express-flash')
  */
 dotenv.load({ path: '.env' })
 
-
+// use the global Promise instead of mongoose promise library deprecated
 mongoose.Promise = Promise
 mongoose.connect(
   process.env.MONGODB_URI || process.env.MONGOLAB_URI
 )
 
+/**
+ * routes declaration
+ */
 const routes = require('./routes/index')
 const auth = require('./routes/auth')
 const users = require('./routes/users')

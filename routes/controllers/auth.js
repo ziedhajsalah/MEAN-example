@@ -79,6 +79,17 @@ const isAuth = function (req, res, next) {
 }
 
 const apiRegister = function (req, res, next) {
+  req.assert('email', 'email is not valid').isEmail()
+  req.assert('password', 'password is short').len(6)
+
+  const errors = req.validationErrors()
+
+  if (errors) {
+    return res.status(400).json({
+      errors
+    })
+  }
+
   let user = {
     email: req.body.email,
     password: req.body.password
@@ -89,10 +100,9 @@ const apiRegister = function (req, res, next) {
       return next(err)
     }
     if (existingUser) {
-      res.json({
+      return res.status(400).json({
         message: 'this email is already taken'
       })
-      return
     }
 
     user = new User(user)
@@ -100,7 +110,7 @@ const apiRegister = function (req, res, next) {
       if (err) {
         next(err)
       }
-      return res.status(200).json({
+      return res.status(201).json({
         'token': user.generateJWT(),
         'message': 'User registered: ' + req.body.email
       })
@@ -111,14 +121,15 @@ const apiRegister = function (req, res, next) {
 const apiLogin = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     if (err) {
-      res.status(404).json(err)
+      return res.status(500).json(err)
     }
 
     if (!user) {
-      res.status(401).json(info)
+      console.log(info)
+      return res.status(400).json(info)
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       token: user.generateJWT()
     })
   })(req, res, next)
@@ -151,16 +162,16 @@ const facebookLoginCallback = function (req, res, next) {
 }
 
 const AuthController = {
-  getLoginPage: getLoginPage,
-  getRegisterPage: getRegisterPage,
-  register: register,
-  login: login,
-  logout: logout,
-  isAuth: isAuth,
-  apiRegister: apiRegister,
-  apiLogin: apiLogin,
-  facebookLogin: facebookLogin,
-  facebookLoginCallback: facebookLoginCallback
+  getLoginPage,
+  getRegisterPage,
+  register,
+  login,
+  logout,
+  isAuth,
+  apiRegister,
+  apiLogin,
+  facebookLogin,
+  facebookLoginCallback
 }
 
 module.exports = AuthController

@@ -49,7 +49,7 @@ userSchema.methods.comparePassword = function comparePassword (candidatePassword
 }
 
 userSchema.methods.generateJWT = function () {
-  var expire = moment().add('days', 7).valueOf() / 1000
+  var expire = moment().add(7, 'days').valueOf() / 1000
 
   return jwt.sign({
     _id: this._id,
